@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="inofs" default="compile" basedir=".">
+
+	<property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home"></property>
+	<property name="app.name" value="infos"></property>
+	<property name="app.path" value="/${app.name}" />
+	<property name="app.version" value="1.0-dev"></property>
+	<property name="build.home" value="${basedir}/build" />
+	<property name="catalina.home" value="/Users/ganjia/dev/servers/tomcat/6_0/apache-tomcat-6.0.43"></property>
+	<property name="dist.name" value="${basedir}/dist/"></property>
+	<property name="docs.home" value="${basedir}/docs" ></property>
+	<property name="src.home" value="${basedir}/src"></property>
+	<property name="resources.home" value="${basedir}/resources"></property>
+	<property name="web.home" value="${basedir}/WebContent"></property>
+	<property name="lib.home" value="${basedir}/lib" />
+	
+	<!-- ================ Compilation Control Options ============ -->
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="false" />
+	<property name="compile.optimize" value="true" />
+	
+	<!-- ================ Compilation Classpath ================== -->
+	<path id="compile.classpath">
+		<pathelement location="${lib.home}/classes" />
+		<fileset dir="${lib.home}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<!-- ================ All Target ============================ -->
+	<target name="all" depends="clean,compile" description="Clean build and dist directories, then compile" />
+	
+	<!-- ===============  Clean Target ========================== -->
+	<target name="clean" description="Delete old build and dist directories">
+		<delete dir="${build.home}"></delete>
+		<delete dir="${dist.name}"></delete>
+	</target>
+	
+	<!-- =============== Compile Target ======================== -->
+	<target name="compile" depends="prepare" description="Compile Java Sources">
+		<mkdir dir="${build.home}/WEB-INF/classes" />
+		<javac target="1.6" encoding="UTF-8" source="1.6" srcdir="${src.home}" destdir="${build.home}/WEB-INF/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}" includeantruntime="on">
+			<classpath refid="compile.classpath"></classpath>
+		</javac>
+		<!--Copy application resources -->
+		<copy todir="${build.home}/WEB-INF/classes">
+			<fileset dir="${resources.home}"></fileset>
+		</copy>
+	</target>
+	
+	<!-- ===================== Dist Target =========================== -->
+	<target name="dist" depends="compile" description="Create binary distribution">
+		<!-- Copy Documentation subdirectories -->
+		<!--
+		<mkdir dir="${dist.name}/docs" />
+		<copy todir="${dist.name}/docs">
+			<fileset dir="${docs.home}" />
+		</copy>
+		-->
+		<!-- Create application JAR file -->
+		<jar jarfile="${dist.name}/${app.name}-${app.version}.war" basedir="${build.home}" />
+		<!-- Copy additional files to ${dist.home} as necessary -->
+		
+	</target>
+	
+	<!-- =================== Javadoc Target =========================== -->
+	<!--<target name="javadoc" depends="compile" description="Create javadoc api documentation">
+		<mkdir dir="${dist.name}/docs/api" />
+		<javadoc sourcepath="${src.home}" destdir="${dist.name}/docs/api" packagenames="*">
+			<classpath refid="compile.classpath"></classpath>
+		</javadoc>
+	</target>-->
+	
+	<!--=================== Prepare Target =========================== -->
+	<target name="prepare">
+		<!-- Create buid directories as needed -->
+		<mkdir dir="${build.home}" />
+		<mkdir dir="${build.home}/WEB-INF"/>
+		<mkdir dir="${build.home}/WEB-INF/classes"/>
+		
+		<!-- Copy static content of this web application -->
+		<copy todir="${build.home}">
+			<fileset dir="${web.home}"></fileset>
+		</copy>
+		
+		<!-- Copy external dependencies as required -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<mkdir dir="${build.home}/WEB-INF/lib"/>
+		<copy todir="${build.home}/WEB-INF/lib">
+			<fileset dir="${lib.home}"></fileset>
+		</copy>
+		
+		<!-- Copy static files from external dependencies as needed -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+	</target>
+	
+		
+</project>
