@@ -5,8 +5,8 @@ import com.github.colingan.infos.dal.slider.bo.Slider;
 
 public interface SliderDAO extends IGenericDAO<Slider> {
 
-	long addSlider(Slider slider);
+  long addSlider(Slider slider);
 
-	int update(long id, Slider slider);
+  int update(long id, Slider slider);
 
 }

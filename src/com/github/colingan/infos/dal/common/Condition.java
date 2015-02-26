@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Condition {
 
-    String toSqlClause(List<Object> params);
+  String toSqlClause(List<Object> params);
 }

@@ -5,7 +5,7 @@ import com.github.colingan.infos.dal.members.bo.Member;
 
 public interface MemberDAO extends IGenericDAO<Member> {
 
-    Long add(Member member);
+  Long add(Member member);
 
-    boolean updateMemberRole(long id, int role);
+  boolean updateMemberRole(long id, int role);
 }

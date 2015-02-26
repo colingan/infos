@@ -13,9 +13,9 @@ import com.github.colingan.infos.dal.common.IGenericDAO;
  */
 public interface CategoryDAO extends IGenericDAO<Category> {
 
-	long addCategory(Category category);
+  long addCategory(Category category);
 
-	int deleteCascade(long id);
+  int deleteCascade(long id);
 
-	int updateCategory(Category category);
+  int updateCategory(Category category);
 }

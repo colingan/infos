@@ -1,7 +1,6 @@
 /**
-* Baidu.com Inc.
-* Copyright (c) 2000-2014 All Rights Reserved.
-*/
+ * Baidu.com Inc. Copyright (c) 2000-2014 All Rights Reserved.
+ */
 package com.github.colingan.infos.web.model;
 
 import java.io.Serializable;
@@ -17,73 +16,73 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class BasicModel implements Serializable {
 
-    private static final long serialVersionUID = -1432625858105356881L;
-    private String userName;
-    private String logout;
-    private Map<String, List<Map<String, Object>>> nav;
-    private String role;
-    private String tag;
-    private List<Map<String, Object>> categorys;
-    private int roleLevel;
+  private static final long serialVersionUID = -1432625858105356881L;
+  private String userName;
+  private String logout;
+  private Map<String, List<Map<String, Object>>> nav;
+  private String role;
+  private String tag;
+  private List<Map<String, Object>> categorys;
+  private int roleLevel;
 
-    public String getUserName() {
-        return userName;
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-    public String getLogout() {
-        return logout;
-    }
+  public String getLogout() {
+    return logout;
+  }
 
-    public void setLogout(String logout) {
-        this.logout = logout;
-    }
+  public void setLogout(String logout) {
+    this.logout = logout;
+  }
 
-    public Map<String, List<Map<String, Object>>> getNav() {
-        return nav;
-    }
+  public Map<String, List<Map<String, Object>>> getNav() {
+    return nav;
+  }
 
-    public void setNav(Map<String, List<Map<String, Object>>> nav) {
-        this.nav = nav;
-    }
+  public void setNav(Map<String, List<Map<String, Object>>> nav) {
+    this.nav = nav;
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public String getTag() {
-        return tag;
-    }
+  public String getTag() {
+    return tag;
+  }
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
 
-    public List<Map<String, Object>> getCategorys() {
-        return categorys;
-    }
+  public List<Map<String, Object>> getCategorys() {
+    return categorys;
+  }
 
-    public void setCategorys(List<Map<String, Object>> categorys) {
-        this.categorys = categorys;
-    }
+  public void setCategorys(List<Map<String, Object>> categorys) {
+    this.categorys = categorys;
+  }
 
-    public int getRoleLevel() {
-        return roleLevel;
-    }
+  public int getRoleLevel() {
+    return roleLevel;
+  }
 
-    public void setRoleLevel(int roleLevel) {
-        this.roleLevel = roleLevel;
-    }
+  public void setRoleLevel(int roleLevel) {
+    this.roleLevel = roleLevel;
+  }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
+  }
 }

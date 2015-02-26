@@ -2,7 +2,14 @@ define(['kindeditor', 'kindeditor-lang-CN', 'jquery-validation'], function () {
 	var K = window.KindEditor;
 	var editor = K.create('#service-edit',{
 			uploadJson : '/editor/upload.do',
-			allowFileManager : false
+			allowFileManager : false,
+			items : ['undo','redo','|','preview', 'print', 'cut', 'copy', 'paste', 'plainpaste', 'wordpaste', '|',
+			         'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist',
+			         'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|',
+			         'fullscreen', '/', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			         'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+			         'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons','pagebreak','anchor', 'link', 'unlink', '|', 'about'
+			         ]
 		});
 	
 	function updateSecondCategory(){

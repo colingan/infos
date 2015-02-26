@@ -8,29 +8,29 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class BaseAjaxResponse<T> implements Serializable {
 
-    private static final long serialVersionUID = 4183165277961293781L;
+  private static final long serialVersionUID = 4183165277961293781L;
 
-    private int status;
-    private List<T> datas;
+  private int status;
+  private List<T> datas;
 
-    public int getStatus() {
-        return status;
-    }
+  public int getStatus() {
+    return status;
+  }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
-    public List<T> getDatas() {
-        return datas;
-    }
+  public List<T> getDatas() {
+    return datas;
+  }
 
-    public void setDatas(List<T> datas) {
-        this.datas = datas;
-    }
+  public void setDatas(List<T> datas) {
+    this.datas = datas;
+  }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 }

@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationContextProvier implements ApplicationContextAware {
 
-    private static ApplicationContext context;
+  private static ApplicationContext context;
 
-    public static ApplicationContext getApplicationContext() {
-        System.out.println("context = " + context);
-        return context;
-    }
+  public static ApplicationContext getApplicationContext() {
+    System.out.println("context = " + context);
+    return context;
+  }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        context = applicationContext;
-    }
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    context = applicationContext;
+  }
 
 }

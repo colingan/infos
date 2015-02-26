@@ -7,12 +7,12 @@ import com.github.colingan.infos.dal.common.IGenericDAO;
 
 public interface BlogDAO extends IGenericDAO<Blog> {
 
-	long addBlog(Blog newBlog);
+  long addBlog(Blog newBlog);
 
-	int updateBlog(Blog blog);
+  int updateBlog(Blog blog);
 
-	long count(long rootCategory, long childCategory);
+  long count(long rootCategory, long childCategory);
 
-	List<Blog> getLatestBlogs(int latestCount);
+  List<Blog> getLatestBlogs(int latestCount);
 
 }

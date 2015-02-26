@@ -17,6 +17,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:jdbc-mysql.properties</value>
+				<value>classpath:sysconf.properties</value>
 			</list>
 		</property>
 		<property name="placeholderPrefix">
@@ -64,8 +65,24 @@
 	</bean>
 
 	<!-- 6868 Write -->
+	<!-- 
 	<bean id="db6868_write" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
+		<property name="driverClassName">
+			<value>#[jdbc.driverClassName]</value>
+		</property>
+		<property name="url">
+			<value>#[db6868_write.url]</value>
+		</property>
+		<property name="username">
+			<value>#[db6868_write.username]</value>
+		</property>
+		<property name="password">
+			<value>#[db6868_write.password]</value>
+		</property>
+	</bean>
+	-->
+	<bean id="db6868_write" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
 			<value>#[jdbc.driverClassName]</value>
 		</property>

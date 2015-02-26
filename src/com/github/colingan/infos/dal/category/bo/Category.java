@@ -19,134 +19,122 @@ import com.github.colingan.infos.dal.constants.CategoryLevel;
  */
 public class Category implements Serializable {
 
-	private static final long serialVersionUID = 2193179169570223853L;
+  private static final long serialVersionUID = 2193179169570223853L;
 
-	private long id;
-	private String name;
-	private String icon;
-	private int level;
-	private long parentCategory;
-	private int isDel;
-	private Date addTime;
-	private Date updateTime;
-	private String updateuser;
+  private long id;
+  private String name;
+  private int level;
+  private long parentCategory;
+  private int isDel;
+  private Date addTime;
+  private Date updateTime;
+  private String updateuser;
 
-	public Category() {
-	}
+  public Category() {}
 
-	public Category(long id) {
-		this.id = id;
-	}
+  public Category(long id) {
+    this.id = id;
+  }
 
-	public long getId() {
-		return id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getIcon() {
-		return icon;
-	}
+  public int getLevel() {
+    return level;
+  }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+  public void setLevel(int level) {
+    this.level = level;
+  }
 
-	public int getLevel() {
-		return level;
-	}
+  public long getParentCategory() {
+    return parentCategory;
+  }
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+  public void setParentCategory(long parentCategory) {
+    this.parentCategory = parentCategory;
+  }
 
-	public long getParentCategory() {
-		return parentCategory;
-	}
+  public int getIsDel() {
+    return isDel;
+  }
 
-	public void setParentCategory(long parentCategory) {
-		this.parentCategory = parentCategory;
-	}
+  public void setIsDel(int isDel) {
+    this.isDel = isDel;
+  }
 
-	public int getIsDel() {
-		return isDel;
-	}
+  public Date getAddTime() {
+    return addTime;
+  }
 
-	public void setIsDel(int isDel) {
-		this.isDel = isDel;
-	}
+  public void setAddTime(Date addTime) {
+    this.addTime = addTime;
+  }
 
-	public Date getAddTime() {
-		return addTime;
-	}
+  public Date getUpdateTime() {
+    return updateTime;
+  }
 
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
-	}
+  public void setUpdateTime(Date updateTime) {
+    this.updateTime = updateTime;
+  }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+  public String getUpdateuser() {
+    return updateuser;
+  }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+  public void setUpdateuser(String updateuser) {
+    this.updateuser = updateuser;
+  }
 
-	public String getUpdateuser() {
-		return updateuser;
-	}
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    return result;
+  }
 
-	public void setUpdateuser(String updateuser) {
-		this.updateuser = updateuser;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Category other = (Category) obj;
+    if (id != other.id)
+      return false;
+    return true;
+  }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+  public boolean validate() {
+    boolean rel = true;
+    rel = rel && StringUtils.isNotEmpty(name);
+    rel = rel && CategoryLevel.validateCategoryLevel(level);
+    rel = rel && (parentCategory >= 0);
+    rel = rel && (isDel == 0 || isDel == 1);
+    rel = rel && StringUtils.isNotEmpty(updateuser);
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Category other = (Category) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    return rel;
+  }
 
-	public boolean validate() {
-		boolean rel = true;
-		rel = rel && StringUtils.isNotEmpty(name);
-		rel = rel && StringUtils.isNotEmpty(icon);
-		rel = rel && CategoryLevel.validateCategoryLevel(level);
-		rel = rel && (parentCategory >= 0);
-		rel = rel && (isDel == 0 || isDel == 1);
-		rel = rel && StringUtils.isNotEmpty(updateuser);
-
-		return rel;
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-	}
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 }

@@ -22,46 +22,46 @@ import com.github.colingan.infos.dal.link.bo.Link;
 @Service
 public class LinkServiceImpl implements LinkService {
 
-    @Resource
-    private LinkDAO linkDao;
+  @Resource
+  private LinkDAO linkDao;
 
-    @Override
-    public List<Link> queryAllLinks() {
-        List<Field> fields = new ArrayList<Field>();
-        fields.add(Field.ID);
-        fields.add(Field.NAME);
-        fields.add(Field.LINK);
+  @Override
+  public List<Link> queryAllLinks() {
+    List<Field> fields = new ArrayList<Field>();
+    fields.add(Field.ID);
+    fields.add(Field.NAME);
+    fields.add(Field.LINK);
 
-        OrderBy orderBy = new CommonOrderBy(Field.ID, OrderByDirection.ASC);
-        return this.linkDao.getObjects(null, fields, orderBy);
-    }
+    OrderBy orderBy = new CommonOrderBy(Field.ID, OrderByDirection.ASC);
+    return this.linkDao.getObjects(null, fields, orderBy);
+  }
 
-    @Override
-    public boolean delete(long id) {
+  @Override
+  public boolean delete(long id) {
 
-        return this.linkDao.delete(null, new ComparisonCondition(Field.ID, Operation.EQ, id)) == 1;
-    }
+    return this.linkDao.delete(null, new ComparisonCondition(Field.ID, Operation.EQ, id)) == 1;
+  }
 
-    @Override
-    public Link addLink(String name, String link) {
-        Validate.notEmpty(name, "name should not be empty.");
-        Validate.notEmpty(link, "link should not be empty.");
-        Link linkObj = new Link();
-        linkObj.setAddTime(new Date());
-        linkObj.setLink(link);
-        linkObj.setName(name);
-        linkObj.setUpdateTime(new Date());
-        linkObj.setId(this.linkDao.addLink(linkObj));
-        return linkObj;
-    }
+  @Override
+  public Link addLink(String name, String link) {
+    Validate.notEmpty(name, "name should not be empty.");
+    Validate.notEmpty(link, "link should not be empty.");
+    Link linkObj = new Link();
+    linkObj.setAddTime(new Date());
+    linkObj.setLink(link);
+    linkObj.setName(name);
+    linkObj.setUpdateTime(new Date());
+    linkObj.setId(this.linkDao.addLink(linkObj));
+    return linkObj;
+  }
 
-    @Override
-    public boolean updateLink(Long id, String name, String link) {
-        Validate.notNull(id, "id should not be null");
-        Validate.notEmpty(name, "name should not be empty.");
-        Validate.notEmpty(link, "link should not be empty.");
+  @Override
+  public boolean updateLink(Long id, String name, String link) {
+    Validate.notNull(id, "id should not be null");
+    Validate.notEmpty(name, "name should not be empty.");
+    Validate.notEmpty(link, "link should not be empty.");
 
-        return this.linkDao.update(id, name, link);
-    }
+    return this.linkDao.update(id, name, link);
+  }
 
 }

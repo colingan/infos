@@ -27,15 +27,15 @@ define(['require', 'jtable'], function (require) {
 				width: '20%',
 				edit: false
 			},
-			email: {
-				title: '邮箱',
-				width: '30%',
+			uid: {
+				title: '集团id',
+				list: false,
 				edit: false,
 				create: false
 			},
 			roleGroup: {
 				title: '用户权限',
-				width: '15%',
+				width: '20%',
 				options: {'0' : '只读权限', '1' : '发布权限', '2' : '管理员权限'}
 			},
 			isDel : {

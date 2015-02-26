@@ -1,7 +1,7 @@
 <#include "../header/header.ftl">
 <link href="/src/home/home.css" rel="stylesheet" />
-<link href="/bower_components/VerticalTimeline/css/default.css" rel="stylesheet" />
-<link href="/bower_components/VerticalTimeline/css/component.css" rel="stylesheet" />
+<link href="/src/home/default.css" rel="stylesheet" />
+<link href="/src/home/newhome.css" rel="stylesheet" />
 
 <#if model.banner?? && model.banner?size gt 0>
 	<div class="banner-container carousel slide" id="estart-banner-carousel" data-ride="carousel">
@@ -24,47 +24,52 @@
 	</div>
 </#if>
 
-<div class="main">
-	<!-- blogs -->
-	<#if model.newBlogs?size gt 0>
-		<ul class="cbp_tmtimeline">
-			<#list model.newBlogs as rootEntry>
-				<li>
-					<div class="cbp_tmtime"><span><a href="/blogs/root?id=${rootEntry.getKey().id}" style="color:#000000;">${rootEntry.getKey().name}</a></span></div>
-					<div class="cbp_tmicon" style="background:${rootEntry.getKey().icon};"></div>
-					<div class="cbp_tmlabel">
-                        <#assign started=false />
-                        <#assign closed=true />
-						<#list rootEntry.getValue() as childEntry>
-                            <#assign started=true />
-                            <#assign closed=false />
-							<#if childEntry_index % 3 == 0>
-								<div class="blog-list-panel">
-							</#if>
-							<div style="width:32%;float:left;">
-								<h2 style='background-image: url("/onesfile/categoryIcons/${childEntry.getKey().icon}");background-repeat: no-repeat;height: 50px; padding-left: 50px;padding-top: 5px; background-size: 48px 48px;'><a href="/blogList?rootCategory=${rootEntry.getKey().id}&childCategory=${childEntry.getKey().id}">${childEntry.getKey().name}</a></h2>
-								<!-- latest blogs -->
-								<#list childEntry.getValue() as latestBlog>
-									<p class="cloud-des"><a href="/blogs/view?id=${latestBlog.id}">${latestBlog.title}</a></p>
-								</#list>
-								<p class="check-more">
-									<a href="/blogList?rootCategory=${rootEntry.getKey().id}&childCategory=${childEntry.getKey().id}"> 查看更多>> </a>
-								</p>
+<div id="container" style="margin-top: 30px">
+	<div id="content" class="clearfix">
+		<div id="main" class="col620 clearfix" role="main">
+			<div class="item-wrap clearfix">
+				<#if model.newBlogs?size gt 0>
+					<#list model.newBlogs as rootEntry>
+						<div class="item col300">
+							<div class="item-cat">
+								<span class="cat-links">
+									<a rel="category" href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
+								</span>
 							</div>
-							<#if childEntry_index % 3 == 2>
-								</div>
-                                <#assign closed=true />
-							</#if>
-						</#list>
-                        <#if started && closed == false>
-                            </div>
-                        </#if>
-			        </div>
-				</li>
-			</#list>
-		</ul>
-	</#if>
-	<!-- end of blogs -->
+							<div class="item-content">
+								<header>
+									<#list rootEntry.getValue() as childEntry>
+										<#list childEntry.getValue() as latestBlog>
+											<h2 class="entry-title">
+												<a href="/blogs/view?id=${latestBlog.id}">${latestBlog.title}</a>
+											</h2>
+										</#list>
+									</#list>
+								</header>
+							</div>
+						</div>						
+					</#list>
+				</#if>
+			</div>
+		</div>
+		
+		<div id="sidebar" class="widget-area col300" role="complementary">
+			<div id="social-media" class="clearfix"></div>
+			<aside id="search-3" class="widget widget_search">
+				<form id="searchform" class="searchform" method="get" role="search">
+					<div>
+						<label class="screen-reader-text" for="s">Search for:</label>
+						<input id="s" type="text" name="s" />
+						<input id="searchsubmit" type="submit" />
+					</div>
+				</form>
+			</aside>
+			<!--user infos -->
+			<aside id="userinfos" class="widget widget_recent_entries">
+				<h2 class="widget-title">${model.basic.userName}</h2>
+			</aside>
+		</div>
+	</div>
 	
 	<!-- links -->
 	<div id="linkDiv">
@@ -80,10 +85,7 @@
 	</div>
 	<!-- end of links -->
 </div>
-
-<div class="estart-responsible-person">
- 如有问题，请联系 ones_web@baidu.com
-</div>
+	
 <#include "../footer/footer.ftl">
 <script>
     require(['home/home']);

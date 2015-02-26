@@ -5,30 +5,30 @@ import java.util.Map;
 
 public enum RoleGroup {
 
-    READ_ONLY(0), // 只读组
-    READ_WRITE(1), // 发布组
-    ADMIN(2) // 管理员
-    ;
+  READ_ONLY(0), // 只读组
+  READ_WRITE(1), // 发布组
+  ADMIN(2) // 管理员
+  ;
 
-    private static final Map<Integer, RoleGroup> VALUE_MAP = new HashMap<Integer, RoleGroup>() {
-        {
-            for (RoleGroup role : RoleGroup.values()) {
-                put(role.getValue(), role);
-            }
-        }
-    };
-
-    private RoleGroup(int value) {
-        this.value = value;
+  private static final Map<Integer, RoleGroup> VALUE_MAP = new HashMap<Integer, RoleGroup>() {
+    {
+      for (RoleGroup role : RoleGroup.values()) {
+        put(role.getValue(), role);
+      }
     }
+  };
 
-    private int value;
+  private RoleGroup(int value) {
+    this.value = value;
+  }
 
-    public int getValue() {
-        return value;
-    }
+  private int value;
 
-    public static boolean validateRoleGroupValue(int value) {
-        return VALUE_MAP.containsKey(Integer.valueOf(value));
-    }
+  public int getValue() {
+    return value;
+  }
+
+  public static boolean validateRoleGroupValue(int value) {
+    return VALUE_MAP.containsKey(Integer.valueOf(value));
+  }
 }

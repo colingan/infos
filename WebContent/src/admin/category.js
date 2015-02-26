@@ -1,15 +1,5 @@
-define(['require', 'jtable', 'simple-color', 'plupload'], function (require) {
+define(['require', 'jtable'], function (require) {
 	var $table = $('#categoryTableContainer');
-	var uploader;
-	
-	function newPicker(value) {
-		$picker = $('<div class="rectangle" style="background:' + value + ';"></div>')
-		return $picker;
-	}
-	
-	function removeFile(fielid) {
-		uploader.removeFile(fileid);
-	}
 	
 	$table.jtable({
 		title: '一级分类列表',
@@ -63,16 +53,6 @@ define(['require', 'jtable', 'simple-color', 'plupload'], function (require) {
 											title: '分类名称',
 											width: '20%'
 										},
-										icon: {
-											title: 'icon',
-											width: '20%',
-											display: function(categoryData) {
-												return $('<img src=/onesfile/categoryIcons/' + categoryData.record.icon + ' width="48" height="48" />');
-											},
-											input: function(data) {
-												return '<div id="filelist"></div><div id="container"><a id="iconfile" href="javascript:;">选择图标</a><a id="uploadfile" href="javascript:;">上传文件</a></div><input type="hidden" name="icon" id="icon" /><br/><pre id="console"></pre>';
-											}
-										},
 										level: {
 											title: 'level',
 											list: false,
@@ -80,59 +60,6 @@ define(['require', 'jtable', 'simple-color', 'plupload'], function (require) {
 											defaultValue : '2',
 											edit: false
 										}
-									},
-									formCreated: function(event, data){
-										uploader = new plupload.Uploader({
-											runtimes: 'html5,flash,html4',
-											browse_button: 'iconfile',
-											container: document.getElementById('container'),
-											url: '/admin/category/imageUpload',
-											flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-											multi_selection: false,
-											
-											filters : {
-												max_file_size : '10mb',
-												mime_types: [
-													{title : "Image files", extensions : "jpg,gif,png"}
-												]
-											},
-											
-											init: {
-												PostInit: function() {
-													document.getElementById('filelist').innerHTML = '';
-
-													document.getElementById('uploadfile').onclick = function() {
-														uploader.start();
-														return false;
-													};
-												},
-
-												FilesAdded: function(up, files) {
-													var MAX_UPLOAD_FILES = 1;
-													plupload.each(files, function(file) {
-														if(up.files.length > MAX_UPLOAD_FILES) {
-															alert("You are allowed to add only " + MAX_UPLOAD_FILES + " files.");
-															up.removeFile(file);
-															return;
-														}
-														document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-													});
-												},
-
-												UploadProgress: function(up, file) {
-													document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-												},
-
-												Error: function(up, err) {
-													document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
-												},
-												
-												FileUploaded: function(up, file){
-													$('#icon').val(file.name);
-												}
-											}
-										});
-										uploader.init();
 									}
 								}, function(data) {
 									// opened handler
@@ -146,20 +73,6 @@ define(['require', 'jtable', 'simple-color', 'plupload'], function (require) {
 			name: {
 				title: '分类名称',
 				width: '20%'
-			},
-			icon: {
-				title: 'icon',
-				width: '20%',
-				display : function(categoryData) {
-					return newPicker(categoryData.record.icon);
-				},
-				input: function(data) {
-					if(data.record) {
-						return '<input type="text" name="icon" id="icon" value="' + data.record.icon + '" />';
-					}else{
-						return '<input type="text" name="icon" id="icon" />';
-					}
-				}
 			},
 			level: {
 				title: 'level',
@@ -175,11 +88,6 @@ define(['require', 'jtable', 'simple-color', 'plupload'], function (require) {
 				type: 'hidden',
 				defaultValue: '0'
 			}
-		},
-		formCreated: function(event, data){
-			data.form.css("width", "300px");
-			data.form.css("height", "250px");
-			$('#icon').simpleColor();
 		}
 	});
 	

@@ -6,22 +6,20 @@ import com.github.colingan.infos.dal.blogs.bo.Blog;
 
 public interface BlogService {
 
-	long addNewBlog(String userName, String title, long category1,
-			long category2, String content);
+  long addNewBlog(String userName, String title, long category1, long category2, String content);
 
-	Blog queryBlogDetail(long id);
+  Blog queryBlogDetail(long id);
 
-	boolean updateBlog(long blogId, String title, String content);
+  boolean updateBlog(long blogId, String title, String content);
 
-	List<Blog> queryBlogsBrief(long rootCategory, long childCategory,
-			long pageNum, long pageSize);
+  List<Blog> queryBlogsBrief(long rootCategory, long childCategory, long pageNum, long pageSize);
 
-	long getBlogSize(long rootCategory, long childCategory);
+  long getBlogSize(long rootCategory, long childCategory);
 
-	List<Blog> getLatestBlogs(int latestCount);
+  List<Blog> getLatestBlogs(int latestCount);
 
-	Blog queryBlogBrief(long id);
+  Blog queryBlogBrief(long id);
 
-	boolean deleteBlog(long id);
+  boolean deleteBlog(long id);
 
 }

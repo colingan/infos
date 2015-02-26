@@ -1,6 +1,5 @@
 /**
- * Baidu.com Inc.
- * Copyright (c) 2000-2014 All Rights Reserved.
+ * Baidu.com Inc. Copyright (c) 2000-2014 All Rights Reserved.
  */
 package com.github.colingan.infos.web.main.model;
 
@@ -19,35 +18,34 @@ import com.github.colingan.infos.web.model.AbstractBaseModel;
  */
 public class MainModel extends AbstractBaseModel {
 
-	private static final long serialVersionUID = -8517449613990835650L;
-	private String[] banner;
-	private List<Entry<Category, List<Entry<Category, List<Blog>>>>> newBlogs;
+  private static final long serialVersionUID = -8517449613990835650L;
+  private String[] banner;
+  private List<Entry<Category, List<Entry<Category, List<Blog>>>>> newBlogs;
 
-	private List<Link> links;
+  private List<Link> links;
 
-	public String[] getBanner() {
-		return banner;
-	}
+  public String[] getBanner() {
+    return banner;
+  }
 
-	public void setBanner(String[] banner) {
-		this.banner = banner;
-	}
+  public void setBanner(String[] banner) {
+    this.banner = banner;
+  }
 
-	public List<Entry<Category, List<Entry<Category, List<Blog>>>>> getNewBlogs() {
-		return newBlogs;
-	}
+  public List<Entry<Category, List<Entry<Category, List<Blog>>>>> getNewBlogs() {
+    return newBlogs;
+  }
 
-	public void setNewBlogs(
-			List<Entry<Category, List<Entry<Category, List<Blog>>>>> newBlogs) {
-		this.newBlogs = newBlogs;
-	}
+  public void setNewBlogs(List<Entry<Category, List<Entry<Category, List<Blog>>>>> newBlogs) {
+    this.newBlogs = newBlogs;
+  }
 
-	public List<Link> getLinks() {
-		return links;
-	}
+  public List<Link> getLinks() {
+    return links;
+  }
 
-	public void setLinks(List<Link> links) {
-		this.links = links;
-	}
+  public void setLinks(List<Link> links) {
+    this.links = links;
+  }
 
 }

@@ -30,75 +30,73 @@ import com.github.colingan.infos.web.controller.BaseController;
  */
 public abstract class AdminController extends BaseController {
 
-	protected void baseAdminMemberCheck(HttpServletRequest request) {
-		Member member = (Member) request
-				.getAttribute(BizConstants.MEMBER_ROLE_GROUP);
-		Validate.notNull(member, "member is required.");
-		Validate.isTrue(member.getRoleGroup() >= RoleGroup.ADMIN.getValue(),
-				"member role should greater than administrator");
-	}
+  protected void baseAdminMemberCheck(HttpServletRequest request) {
+    Member member = (Member) request.getAttribute(BizConstants.MEMBER_ROLE_GROUP);
+    Validate.notNull(member, "member is required.");
+    Validate.isTrue(member.getRoleGroup() >= RoleGroup.ADMIN.getValue(),
+        "member role should greater than administrator");
+  }
 
-	protected Map<String, Object> imageUploaduploadImages(
-			MultipartHttpServletRequest request, String destFileDir,
-			boolean needRandomName) {
+  protected Map<String, Object> imageUploaduploadImages(MultipartHttpServletRequest request,
+      String destFileDir, boolean needRandomName) {
 
-		Validate.notNull(request);
-		Validate.notEmpty(destFileDir);
+    Validate.notNull(request);
+    Validate.notEmpty(destFileDir);
 
-		this.baseAdminMemberCheck(request);
-		JTableModel model = new JTableModel();
-		model.jsonRpcVersion(JTableModel.RPC_2_0);
+    this.baseAdminMemberCheck(request);
+    JTableModel model = new JTableModel();
+    model.jsonRpcVersion(JTableModel.RPC_2_0);
 
-		MultipartFile file = request.getFile(Field.FILE.getKeyName());
-		if (file == null) {
-			model.jsonRpcFail(new ErrorCode(101, "附件为空！"));
-			return model.getDatas();
-		}
+    MultipartFile file = request.getFile(Field.FILE.getKeyName());
+    if (file == null) {
+      model.jsonRpcFail(new ErrorCode(101, "附件为空！"));
+      return model.getDatas();
+    }
 
-		File dest = null;
+    File dest = null;
 
-		if (needRandomName) {
-			String ext = FileUtil.getExtension(file.getOriginalFilename());
-			if (StringUtils.isNotEmpty(ext)) {
-				ext = "." + ext;
-			}
-			dest = new File(destFileDir, UUID.randomUUID().toString() + ext);
-		} else {
-			dest = new File(destFileDir, file.getOriginalFilename());
-		}
+    if (needRandomName) {
+      String ext = FileUtil.getExtension(file.getOriginalFilename());
+      if (StringUtils.isNotEmpty(ext)) {
+        ext = "." + ext;
+      }
+      dest = new File(destFileDir, UUID.randomUUID().toString() + ext);
+    } else {
+      dest = new File(destFileDir, file.getOriginalFilename());
+    }
 
-		try {
-			if (!needRandomName && fileExist(dest)) {
-				model.jsonRpcFail(new ErrorCode(102, "文件名已存在！"));
-				return model.getDatas();
-			}
-			if (!fileExist(dest)) {
-				dest.createNewFile();
-			}
-			file.transferTo(dest);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.jsonRpcFail(new ErrorCode(103, "文件存储失败！"));
-			try {
-				if (dest != null) {
-					dest.delete();
-				}
-			} finally {
-				return model.getDatas();
-			}
-		}
+    try {
+      if (!needRandomName && fileExist(dest)) {
+        model.jsonRpcFail(new ErrorCode(102, "文件名已存在！"));
+        return model.getDatas();
+      }
+      if (!fileExist(dest)) {
+        dest.createNewFile();
+      }
+      file.transferTo(dest);
+    } catch (Exception e) {
+      e.printStackTrace();
+      model.jsonRpcFail(new ErrorCode(103, "文件存储失败！"));
+      try {
+        if (dest != null) {
+          dest.delete();
+        }
+      } finally {
+        return model.getDatas();
+      }
+    }
 
-		model.jsonRpcResult("success");
-		model.jsonRpcId(dest.getName());
-		return model.getDatas();
-	}
+    model.jsonRpcResult("success");
+    model.jsonRpcId(dest.getName());
+    return model.getDatas();
+  }
 
-	private boolean fileExist(File dest) {
-		Validate.notNull(dest);
-		if (!dest.getParentFile().exists()) {
-			dest.getParentFile().mkdirs();
-		}
-		return dest.exists();
-	}
+  private boolean fileExist(File dest) {
+    Validate.notNull(dest);
+    if (!dest.getParentFile().exists()) {
+      dest.getParentFile().mkdirs();
+    }
+    return dest.exists();
+  }
 
 }

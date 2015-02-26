@@ -9,35 +9,35 @@ import org.apache.commons.lang.Validate;
 
 public class MultiOrderBy implements OrderBy {
 
-    private Set<CommonOrderBy> commons;
+  private Set<CommonOrderBy> commons;
 
-    public MultiOrderBy() {
-        this.commons = new LinkedHashSet<CommonOrderBy>();
-    }
+  public MultiOrderBy() {
+    this.commons = new LinkedHashSet<CommonOrderBy>();
+  }
 
-    public void addCommonOrderBy(CommonOrderBy common) {
-        Validate.notNull(common, "common order by item should not be null");
-        this.commons.add(common);
-    }
+  public void addCommonOrderBy(CommonOrderBy common) {
+    Validate.notNull(common, "common order by item should not be null");
+    this.commons.add(common);
+  }
 
-    @Override
-    public String toSqlClause() {
-        if (CollectionUtils.isEmpty(commons)) {
-            return "";
-        }
-        StringBuilder sql = new StringBuilder();
-        sql.append(" order by ");
-        Iterator<CommonOrderBy> it = commons.iterator();
-        CommonOrderBy common = it.next();
-        sql.append(common.getField().getColumnName()).append(" ")
-                .append(common.getDirection().toString().toLowerCase());
-        while (it.hasNext()) {
-            sql.append(", ");
-            common = it.next();
-            sql.append(common.getField().getColumnName()).append(" ")
-                    .append(common.getDirection().toString().toLowerCase());
-        }
-        return sql.toString();
+  @Override
+  public String toSqlClause() {
+    if (CollectionUtils.isEmpty(commons)) {
+      return "";
     }
+    StringBuilder sql = new StringBuilder();
+    sql.append(" order by ");
+    Iterator<CommonOrderBy> it = commons.iterator();
+    CommonOrderBy common = it.next();
+    sql.append(common.getField().getColumnName()).append(" ")
+        .append(common.getDirection().toString().toLowerCase());
+    while (it.hasNext()) {
+      sql.append(", ");
+      common = it.next();
+      sql.append(common.getField().getColumnName()).append(" ")
+          .append(common.getDirection().toString().toLowerCase());
+    }
+    return sql.toString();
+  }
 
 }

@@ -32,18 +32,6 @@
     		</textarea>
     	</div>
     </div>
-    <div class="checkbox form-group">
-    	<div class="col-sm-2" style="text-align:right;">
-    		<input type="checkbox" name="needBroadcast" id="needBroadcast">
-    	</div>
-    	<label class="col-sm-4 control-label" style="text-align:left;">发布时发送邮件通知</label>
-    </div>
-    <div class="form-group" id="mailUsers" style="display:none;">
-    	<label class="col-sm-2 control-label">收件人：</label>
-    	<div class="col-sm-8">
-    		<input type="text" class="form-control" id="users" name="users" placeholder="请输入邮箱前缀，多个邮箱之间用英文逗号分隔"/>
-    	</div>
-    </div>
     <button type="submit" class="btn btn-primary" id="submitBtn">提交</button>
     <button type="reset" class="btn btn-default">取消</button>
 </form>

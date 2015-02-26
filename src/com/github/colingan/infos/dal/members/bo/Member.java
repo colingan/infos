@@ -11,115 +11,117 @@ import com.github.colingan.infos.dal.constants.RoleGroup;
 
 public class Member implements Serializable {
 
-    private static final long serialVersionUID = 5248277785702409001L;
+  private static final long serialVersionUID = 5248277785702409001L;
 
-    private long id;
-    private String realName;
-    private String userName;
-    private String email;
-    private int roleGroup;
-    private int isDel;
-    private Date addTime;
-    private Date updateTime;
+  private long id;
+  private String realName;
+  private String userName;
+  private int roleGroup;
+  private int isDel;
+  private Date addTime;
+  private Date updateTime;
 
-    public long getId() {
-        return id;
-    }
+  private String uid;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public String getRealName() {
-        return realName;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
+  public String getRealName() {
+    return realName;
+  }
 
-    public String getUserName() {
-        return userName;
-    }
+  public void setRealName(String realName) {
+    this.realName = realName;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public int getRoleGroup() {
+    return roleGroup;
+  }
 
-    public int getRoleGroup() {
-        return roleGroup;
-    }
+  public void setRoleGroup(int roleGroup) {
+    this.roleGroup = roleGroup;
+  }
 
-    public void setRoleGroup(int roleGroup) {
-        this.roleGroup = roleGroup;
-    }
+  public int getIsDel() {
+    return isDel;
+  }
 
-    public int getIsDel() {
-        return isDel;
-    }
+  public void setIsDel(int isDel) {
+    this.isDel = isDel;
+  }
 
-    public void setIsDel(int isDel) {
-        this.isDel = isDel;
-    }
+  public Date getAddTime() {
+    return addTime;
+  }
 
-    public Date getAddTime() {
-        return addTime;
-    }
+  public void setAddTime(Date addTime) {
+    this.addTime = addTime;
+  }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+  public Date getUpdateTime() {
+    return updateTime;
+  }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+  public void setUpdateTime(Date updateTime) {
+    this.updateTime = updateTime;
+  }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+  public String getUid() {
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
-    }
+    return uid;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Member other = (Member) obj;
-        if (id != other.id)
-            return false;
-        return true;
-    }
+  public void setUid(String uid) {
 
-    public boolean validate() {
-        boolean rel = true;
-        rel = rel && StringUtils.isNotEmpty(realName);
-        rel = rel && StringUtils.isNotEmpty(userName);
-        rel = rel && StringUtils.isNotEmpty(email);
-        rel = rel && RoleGroup.validateRoleGroupValue(roleGroup);
-        rel = rel && (isDel == 0 || isDel == 1);
-        return rel;
-    }
+    this.uid = uid;
+  }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Member other = (Member) obj;
+    if (id != other.id)
+      return false;
+    return true;
+  }
+
+  public boolean validate() {
+    boolean rel = true;
+    rel = rel && StringUtils.isNotEmpty(realName);
+    rel = rel && StringUtils.isNotEmpty(userName);
+    rel = rel && RoleGroup.validateRoleGroupValue(roleGroup);
+    rel = rel && (isDel == 0 || isDel == 1);
+    return rel;
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 }
