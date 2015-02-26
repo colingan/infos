@@ -62,21 +62,5 @@
         }
     });
     require(['jquery', 'bootstrap']);
-    require(['common/js/nav']);
-    
-    require(['common/js/log'], function(log) {
-        log.init('http://fclog.baidu.com/nirvana/log/fclogimg.gif', {
-            username: '${model.basic.userName}'
-        });
-
-        var estartLogMark = 'ones123-log-';
-        $('body').on('click.monitor', '[data-log]', function() {
-            var params = $(this).data('log').replace(/\'/g, '"');
-            params = JSON.parse(params);
-            params.target = estartLogMark + params.target;
-            log.log(params);
-        });
-
-        log.log({target: estartLogMark + 'page-enter', page: '${model.basic.tag}'});
-    });
+    require(['common/js/nav']);    
 </script>

@@ -72,7 +72,7 @@
 	</target>-->
 	
 	<!--=================== Prepare Target =========================== -->
-	<target name="prepare">
+	<target name="prepare" depends="macchooser,winchooser">
 		<!-- Create buid directories as needed -->
 		<mkdir dir="${build.home}" />
 		<mkdir dir="${build.home}/WEB-INF"/>
@@ -92,6 +92,47 @@
 		
 		<!-- Copy static files from external dependencies as needed -->
 		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+	</target>
+	
+	<target name="macchooser" depends="maccheck" if="mac.os">
+		<delete file="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+		<copy file="${src.home}/com/github/colingan/infos/biz/BizConstants.java.mac" tofile="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+					
+		<delete file="${resources.home}/applicationContext.xml" />
+		<copy file="${resources.home}/applicationContext.xml.mac" tofile="${resources.home}/applicationContext.xml" />
+						
+		<delete file="${resources.home}/jdbc-mysql.properties" />
+		<copy file="${resources.home}/jdbc-mysql.properties.mac" tofile="${resources.home}/jdbc-mysql.properties" />
+						
+		<delete file="${resources.home}/sysconf.properties" />
+		<copy file="${resources.home}/sysconf.properties.mac" tofile="${resources.home}/sysconf.properties" />
+	</target>
+	
+	<target name="winchooser" depends="maccheck" unless="mac.os">
+			<delete file="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+			<copy file="${src.home}/com/github/colingan/infos/biz/BizConstants.java.win" tofile="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+						
+			<delete file="${resources.home}/applicationContext.xml" />
+			<copy file="${resources.home}/applicationContext.xml.win" tofile="${resources.home}/applicationContext.xml" />
+							
+			<delete file="${resources.home}/jdbc-mysql.properties" />
+			<copy file="${resources.home}/jdbc-mysql.properties.win" tofile="${resources.home}/jdbc-mysql.properties" />
+							
+			<delete file="${resources.home}/sysconf.properties" />
+			<copy file="${resources.home}/sysconf.properties.win" tofile="${resources.home}/sysconf.properties" />
+		</target>
+	
+	<target name="maccheck">
+		<condition property="mac.os">
+			<and>
+				<available file="/home" />
+			</and>
+		</condition>
+	</target>
+	
+	<!-- ==============  echo =============== -->
+	<target name="echo" depends="maccheck" if="mac.os">
+		<echo message="os name = ${os.name}" />
 	</target>
 	
 		

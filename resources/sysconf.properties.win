@@ -1,0 +1,7 @@
+logout.url=http://localhost:8080/logout
+latest.count=5
+
+# dir config for windows
+content.file.dest=D:/infodatas/datas
+slider.image.dir=D:/infodatas/sliders
+blog.dir=D:/infodatas/datas/blogs
