@@ -36,16 +36,18 @@
 									<a rel="category" href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
 								</span>
 							</div>
-						</div>
-						<div class="item-content">
-							<ul>
-								<#list rootEntry.getValue() as childEntry>
-									<#list childEntry.getValue() as latestBlog>
-										<li><a href="/blogs/view?id=${latestBlog.id}">${latestBlog.title}</a></li>
+							<div class="item-content">
+								<header>
+									<#list rootEntry.getValue() as childEntry>
+										<#list childEntry.getValue() as latestBlog>
+											<h2 class="entry-title">
+												<a href="/blogs/view?id=${latestBlog.id}">${latestBlog.title}</a>
+											</h2>
+										</#list>
 									</#list>
-								</#list>
-							</ul>
-						</div>
+								</header>
+							</div>
+						</div>						
 					</#list>
 				</#if>
 			</div>
@@ -58,7 +60,7 @@
 					<div>
 						<label class="screen-reader-text" for="s">Search for:</label>
 						<input id="s" type="text" name="s" />
-						<input id="searchsubmit" type="submit" />
+						<input id="searchsubmit" type="submit" value="查询" />
 					</div>
 				</form>
 			</aside>

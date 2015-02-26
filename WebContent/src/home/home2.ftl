@@ -60,7 +60,7 @@
 					<div>
 						<label class="screen-reader-text" for="s">Search for:</label>
 						<input id="s" type="text" name="s" />
-						<input id="searchsubmit" type="submit" />
+						<input id="searchsubmit" type="submit" value="查询" />
 					</div>
 				</form>
 			</aside>

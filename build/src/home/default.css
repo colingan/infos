@@ -213,14 +213,14 @@ HEADER SYTLES
 ******************************************************************/
 
 header[role=banner] {
-	background: url(library/images/gray.png);
+	background: url(/src/home/images/gray.png);
 	position: relative;
 	margin-bottom: 50px;
 	box-shadow: 0 3px 5px #a9a9a9;
 }
 
 	#top-red {
-		background: url(library/images/red.png) repeat-x left top #860e12;
+		background: url(/src/home/images/red.png) repeat-x left top #860e12;
 		overflow: hidden;
 		padding-bottom: 2px;
 		border-bottom: 1px solid #202020;
@@ -265,7 +265,7 @@ header[role=banner] {
 			}
 		
 		#search-box #s {
-			background: url(library/images/icon-search.png) no-repeat 5px 7px #fff;
+			background: url(/src/home/images/icon-search.png) no-repeat 5px 7px #fff;
 			font-size: 1.2em;
 			padding: 5px 7px 5px 27px;
 			border-radius: 5px;
@@ -310,7 +310,7 @@ header[role=banner] {
 		margin-top: 7px;
 		width: 30px;
 		height: 30px;
-		background: url(library/images/icon-search-white.png) no-repeat center center;
+		background: url(/src/home/images/icon-search-white.png) no-repeat center center;
 		cursor: pointer;
 	}
 
@@ -376,7 +376,7 @@ header[role=banner] {
 .page-header { 
 	margin: 0 0 10px 0;
 	padding: 15px 30px; 
-	background: url(library/images/page-head-bg.png) repeat-x #ececec;
+	background: url(/src/home/images/page-head-bg.png) repeat-x #ececec;
 	border-bottom: 1px solid #e4e4e4;
 	text-align: center;
 	
@@ -515,7 +515,7 @@ POSTS & CONTENT STYLES
 ******************************************************************/
 
 #content {
-	background: url(library/images/gray.png);
+	background: url(/src/home/images/gray.png);
 	box-shadow: 0 0 5px #a9a9a9;
 	margin-left: 20px;
 	position: relative;
@@ -524,7 +524,7 @@ POSTS & CONTENT STYLES
 	#content:before {
 		position: absolute;
 		content: "";
-		background: url(library/images/red-dot.png) repeat-y;
+		background: url(/src/home/images/red-dot.png) repeat-y;
 		width: 20px;
 		bottom: 0;
 		top: 0;
@@ -556,14 +556,14 @@ POSTS & CONTENT STYLES
 		}
 	
 	#featured {
-		background: url(library/images/prev.png) repeat-x left bottom #fff;
+		background: url(/src/home/images/prev.png) repeat-x left bottom #fff;
 		height: 432px;
 		padding-bottom: 32px;
 	}
 	
 		#featured-latest.col480 {
 			position: relative;
-			background: url(library/images/no-image-big.jpg) no-repeat center center;
+			background: url(/src/home/images/no-image-big.jpg) no-repeat center center;
 			height: 400px;
 			margin-left: 0;
 			width: 52%;
@@ -574,7 +574,7 @@ POSTS & CONTENT STYLES
 			position: absolute;
 			bottom: 10px;
 			right: 10px;
-			background: url(library/images/circle-arrow.png) no-repeat;
+			background: url(/src/home/images/circle-arrow.png) no-repeat;
 			width: 34px;
 			height: 34px;
 			z-index: 4;
@@ -617,7 +617,7 @@ POSTS & CONTENT STYLES
 			
 				li.featured-title a {
 					display: block;	
-					background: url(library/images/bullet.png) no-repeat right center;
+					background: url(/src/home/images/bullet.png) no-repeat right center;
 					padding: 9px 15px 9px 0;
 					text-decoration: none;
 					font: bold 13px Arial, Helvetica, sans-serif;
@@ -638,7 +638,7 @@ POSTS & CONTENT STYLES
 	
 	#content .item {
 		position: relative;
-		background: url(library/images/no-image.jpg) no-repeat center center #fff;
+		background: url(/src/home/images/no-image.jpg) no-repeat center center #fff;
 		height: 230px;
 		margin-bottom: 2%;
 		overflow: hidden;
@@ -662,7 +662,7 @@ POSTS & CONTENT STYLES
 			}
 				#content .item-content h2,
 				#content .featured-content h2 {
-					background: url(library/images/trans.png);
+					background: url(/src/home/images/trans.png);
 					font-size: 1.3em;
 					 
 				}
@@ -672,7 +672,7 @@ POSTS & CONTENT STYLES
 					}
 				
 					#content .item-content h2:hover {
-						background: url(library/images/trans2.png);
+						background: url(/src/home/images/trans2.png);
 					}
 				
 					#content .item-content h2 a,
@@ -985,7 +985,7 @@ PAGE LINK STYLES
 .wp-prev-next .prev-link, 
 .nav-previous, 
 .previous-image { 
-	background: url(library/images/bullet-red-l.png) no-repeat left 12px;
+	background: url(/src/home/images/bullet-red-l.png) no-repeat left 12px;
 	padding-left: 12px;
 	float: left; 
 	margin: 0; 
@@ -994,7 +994,7 @@ PAGE LINK STYLES
 .wp-prev-next .next-link, 
 .nav-next, 
 .next-image { 
-	background: url(library/images/bullet-red-r.png) no-repeat right 12px;
+	background: url(/src/home/images/bullet-red-r.png) no-repeat right 12px;
 	padding-right: 12px;
 	float: right; 
 	margin: 0; 
@@ -1009,7 +1009,7 @@ PAGE LINK STYLES
 	overflow: hidden; 
 	margin: 0 0 1px 0;
 	padding: 0 30px; 
-	background: url(library/images/prev.png) repeat-x left bottom #fff;
+	background: url(/src/home/images/prev.png) repeat-x left bottom #fff;
 	font-family: "Archivo Black", "Arial Black", Gadget, sans-serif;
 	font-weight: 400;
 	font-size: 10px;
@@ -1304,27 +1304,27 @@ SOCIAL MEDIA BUTTONS STYLES
 		}
 	
 	#social-media a.noteworthy-fb {
-		background: url(library/images/icon-fb.png) no-repeat center center;
+		background: url(/src/home/images/icon-fb.png) no-repeat center center;
 	}
 	
 	#social-media a.noteworthy-tw {
-		background: url(library/images/icon-tw.png) no-repeat center center;
+		background: url(/src/home/images/icon-tw.png) no-repeat center center;
 	}
 	
 	#social-media a.noteworthy-gp {
-		background: url(library/images/icon-gp.png) no-repeat center center;
+		background: url(/src/home/images/icon-gp.png) no-repeat center center;
 	}
 	
 	#social-media a.noteworthy-pi {
-		background: url(library/images/icon-pi.png) no-repeat center center;
+		background: url(/src/home/images/icon-pi.png) no-repeat center center;
 	}
 	
 	#social-media a.noteworthy-li {
-		background: url(library/images/icon-li.png) no-repeat center center;
+		background: url(/src/home/images/icon-li.png) no-repeat center center;
 	}
 	
 	#social-media a.noteworthy-rs {
-		background: url(library/images/icon-rs.png) no-repeat center center;
+		background: url(/src/home/images/icon-rs.png) no-repeat center center;
 	}
 
 
@@ -1361,7 +1361,7 @@ SIDEBARS & ASIDES
 		#sidebar .widget li, 
 		#meta.widget aside a {
 			display: block;	
-			background: url(library/images/bullet.png) no-repeat right 12px;
+			background: url(/src/home/images/bullet.png) no-repeat right 12px;
 			padding: 9px 15px 9px 0;
 			text-decoration: none;
 			font: bold 13px Arial, Helvetica, sans-serif;
@@ -1556,7 +1556,7 @@ FOOTER STYLES
 ******************************************************************/
 
 footer[role=contentinfo] {
-	background: url(library/images/red.png) repeat-x left top #860e12;
+	background: url(/src/home/images/red.png) repeat-x left top #860e12;
 	position: relative;
 	clear: both;
 	z-index: 10;
@@ -1653,7 +1653,7 @@ URL: http://stuffandnonsense.co.uk/projects/320andup/
 		
 	header[role=banner] #s {
 		font-size: 1em;
-		background: url(library/images/icon-search.png) no-repeat 5px 4px #fff;
+		background: url(/src/home/images/icon-search.png) no-repeat 5px 4px #fff;
 		padding: 4px 5px 4px 26px;
 		border-radius: 7px;
 		border: 1px solid #fff;

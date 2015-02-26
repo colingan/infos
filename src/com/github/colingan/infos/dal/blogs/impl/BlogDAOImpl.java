@@ -29,7 +29,7 @@ public class BlogDAOImpl extends GenericDAO<Blog> implements BlogDAO {
         .append(getTableName(DEFAULT_USERID))
         .append(" a where ? > (select count(1) from ")
         .append(getTableName(DEFAULT_USERID))
-        .append(" where category2 = a.category2 and id > a.id) order by a.category2 asc, a.id desc");
+        .append(" where category1 = a.category1 and id > a.id) order by a.category1 asc, a.id desc");
 
     List<Blog> rel =
         trans(getJdbcTemplate(DEFAULT_USERID).queryForList(sql.toString(), latestCount));
