@@ -4,6 +4,7 @@
 package com.github.colingan.infos.web.main.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.colingan.infos.biz.services.blog.BlogService;
 import com.github.colingan.infos.biz.services.link.LinkService;
 import com.github.colingan.infos.biz.services.slider.SliderService;
+import com.github.colingan.infos.common.utils.DateTimeUtil;
 import com.github.colingan.infos.dal.blogs.bo.Blog;
 import com.github.colingan.infos.dal.category.bo.Category;
+import com.github.colingan.infos.dal.common.Field;
 import com.github.colingan.infos.dal.slider.bo.Slider;
 import com.github.colingan.infos.web.controller.BaseController;
 import com.github.colingan.infos.web.main.model.MainModel;
+import com.github.colingan.infos.web.main.model.SearchModel;
 
 /**
  * 首页控制器
@@ -40,6 +45,7 @@ import com.github.colingan.infos.web.main.model.MainModel;
 public class IndexController extends BaseController {
 
   private static final String INDEX_PAGE = "home/home2";
+  private static final String SEARCH_PAGE = "home/search";
 
   protected volatile String logout;
   @Value("#[latest.count]")
@@ -53,6 +59,67 @@ public class IndexController extends BaseController {
 
   @Resource
   private LinkService linkService;
+
+  @RequestMapping(value = "/search")
+  public String search(HttpServletRequest request, HttpServletResponse response) {
+    SearchModel model = new SearchModel();
+    // basic数据模型
+    model.setBasic(super.prepareBaseModel(request));
+    request.setAttribute(MODEL_NAME, model);
+
+    // blogs
+    Long pageSize = super.DEFAULT_PAGE_SIZE;
+    String pageSizeStr = request.getParameter(super.PARAM_PAGE_SIZE);
+    if (StringUtils.isNotEmpty(pageSizeStr)) {
+      try {
+        pageSize = Long.parseLong(pageSizeStr);
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("page size参数不正确");
+      }
+    }
+    Long pageNum = super.DEFAULT_PAGE;
+    String pageNumberStr = request.getParameter(super.PARAM_PAGE_NUMBER);
+    if (StringUtils.isNotEmpty(pageNumberStr)) {
+      try {
+        pageNum = Long.parseLong(pageNumberStr);
+      } catch (NumberFormatException nfe) {
+        throw new IllegalArgumentException("page number参数不正确");
+      }
+    }
+    long totalPage = 0;
+    List<Map<String, Object>> blogs = new ArrayList<Map<String, Object>>();
+    String s = request.getParameter("s");
+    if (StringUtils.isEmpty(s)) {
+      // ensure s is not null
+      s = "";
+      // 没有关键词，不检索
+      totalPage = 0;
+    } else {
+      // do query
+      List<Blog> blogList = this.blogService.searchByTitle(s, pageNum, pageSize);
+      if (CollectionUtils.isNotEmpty(blogList)) {
+        for (Blog blog : blogList) {
+          Map<String, Object> innerMap = new HashMap<String, Object>();
+          innerMap.put(Field.ID.getKeyName(), blog.getId());
+          innerMap.put(Field.TITLE.getKeyName(), blog.getTitle());
+          innerMap.put(Field.AUTHOR.getKeyName(), blog.getUserName());
+          innerMap.put(Field.ADD_TIME.getKeyName(), DateTimeUtil.dateToSecond(blog.getAddTime()));
+
+          blogs.add(innerMap);
+        }
+      }
+      totalPage = this.blogService.getSearchByTitleSize(s);
+    }
+
+    model.setBlogs(blogs);
+    model.setPageNum(pageNum);
+    model.setS(s);
+    model.setTotalPage(totalPage % pageSize == 0 ? totalPage / pageSize : totalPage / pageSize + 1);
+
+    request.setAttribute(MODEL_NAME, model);
+
+    return SEARCH_PAGE;
+  }
 
   @RequestMapping(value = "/")
   public String index(HttpServletRequest request, HttpServletResponse response) {

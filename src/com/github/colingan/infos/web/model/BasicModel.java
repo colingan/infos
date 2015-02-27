@@ -6,8 +6,11 @@ package com.github.colingan.infos.web.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.github.colingan.infos.dal.category.bo.Category;
 
 /**
  * @title BasicModel
@@ -19,7 +22,7 @@ public class BasicModel implements Serializable {
   private static final long serialVersionUID = -1432625858105356881L;
   private String userName;
   private String logout;
-  private Map<String, List<Map<String, Object>>> nav;
+  private List<Entry<Category, List<Map<String, Object>>>> nav;
   private String role;
   private String tag;
   private List<Map<String, Object>> categorys;
@@ -41,11 +44,13 @@ public class BasicModel implements Serializable {
     this.logout = logout;
   }
 
-  public Map<String, List<Map<String, Object>>> getNav() {
+  public List<Entry<Category, List<Map<String, Object>>>> getNav() {
+
     return nav;
   }
 
-  public void setNav(Map<String, List<Map<String, Object>>> nav) {
+  public void setNav(List<Entry<Category, List<Map<String, Object>>>> nav) {
+
     this.nav = nav;
   }
 

@@ -16,7 +16,8 @@
             'jquery-validation': '/bower_components/jquery-validation/jquery.validate.min',
             'simple-color': '/bower_components/simple-color/jquery.simple-color',
             'plupload' : '/bower_components/plupload/js/plupload.full.min',
-            'bootpag' : '/bower_components/bootpag/jquery.bootpag.min'
+            'bootpag' : '/bower_components/bootpag/jquery.bootpag.min',
+            'jmenu'	:	'/bower_components/jmenu/jMenu.jquery.min'
         },
         shim:{
         	'bootstrap': {
@@ -56,6 +57,10 @@
         		exports: ''
         	},
         	'bootpag' : {
+        		deps: ['jquery'],
+        		exports: ''
+        	},
+        	'jmenu' : {
         		deps: ['jquery'],
         		exports: ''
         	}

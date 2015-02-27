@@ -1,4 +1,4 @@
-define(['jquery'], function () {
+define(['jmenu'], function () {
 	function setCurrent(cls) {
 		$(cls).children('a').css('color', '#2DA1DC').end()
 			.siblings('li').children('a').css('color', '#D5D6D8');
@@ -29,22 +29,23 @@ define(['jquery'], function () {
 	else {
 		setCurrent('.nav-index');
 	}
-	// 悬浮出现导航下拉框
-    $('.estart-navlist .nav-has-second').hover(function () {
-        $(this).find('ul').slideDown();
-        $(this).find('.dropdown-toggle').css('color','#2DA1DC');
-    }, function () {
-    	var that = $(this);
-    	setTimeout(secondNavSlideUp(that), 100);
+	
+	// jmenu设置
+	$("#jMenu").jMenu({
+        openClick : false,
+        ulWidth : "8em",
+         TimeBeforeOpening : 100,
+        TimeBeforeClosing : 11,
+        animatedText : false,
+        paddingLeft: 1,
+        effects : {
+            effectSpeedOpen : 150,
+            effectSpeedClose : 150,
+            effectTypeOpen : 'slide',
+            effectTypeClose : 'slide',
+            effectOpen : 'swing',
+            effectClose : 'swing'
+        }
+
     });
-    function secondNavSlideUp(that) {
-    	that.find('ul').slideUp();
-    	that.find('.dropdown-toggle').css('color','#D5D6D8');
-    }
-    // 鼠标悬浮时导航样式
-    $('.estart-navlist .nav-has-second').mouseover(function () {
-    	$(this).find('b.estart-caret').removeClass('estart-caret').addClass('estart-caret-up');
-    }).mouseout(function () {
-    	$(this).find('b.estart-caret-up').removeClass('estart-caret-up').addClass('estart-caret');
-    })
 })

@@ -40,9 +40,17 @@
 								<header>
 									<#list rootEntry.getValue() as childEntry>
 										<#list childEntry.getValue() as latestBlog>
-											<h2 class="entry-title">
-												<a href="/blogs/view?id=${latestBlog.id}">${latestBlog.title}</a>
-											</h2>
+											<p class="entry-title">
+												<a href="/blogs/view?id=${latestBlog.id}">
+													<abbr title="${latestBlog.title}">
+														<#if latestBlog.title?length gt 10>
+															${latestBlog.title?substring(0,10)}
+														<#else>
+															${latestBlog.title}
+														</#if>
+													</abbr>
+												</a>
+											</p>
 										</#list>
 									</#list>
 								</header>
@@ -56,12 +64,13 @@
 		<div id="sidebar" class="widget-area col300" role="complementary">
 			<div id="social-media" class="clearfix"></div>
 			<aside id="search-3" class="widget widget_search">
-				<form id="searchform" class="searchform" method="get" role="search">
-					<div>
-						<label class="screen-reader-text" for="s">Search for:</label>
-						<input id="s" type="text" name="s" />
-						<input id="searchsubmit" type="submit" value="查询" />
-					</div>
+				<form id="searchform" class="searchform" method="post" action="/search" role="search">
+					<div class="form-group">
+				        <div class="col-sm-8" style="padding-right: 0px;">
+				            <input type="text" class="form-control required" id="s" name="s" placeholder="请输入关键词" style="padding-right: 0px; padding-left: 5px;"/>
+				        </div>
+				    </div>
+					<button type="submit" class="btn btn-primary" id="submitBtn">查询</button>
 				</form>
 			</aside>
 			<!--user infos -->

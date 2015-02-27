@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>商业孵化平台</title>
+    <title>Ones123</title>
     <link href="/src/common/css/base.css" rel="stylesheet" />
     <link href="/src/common/css/error.css" rel="stylesheet" />
     <link href="/src/common/css/common.css" rel="stylesheet" />

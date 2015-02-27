@@ -76,6 +76,15 @@ public class BlogServiceImpl implements BlogService {
   }
 
   @Override
+  public long getSearchByTitleSize(String s) {
+    Validate.notNull(s);
+    s = "%" + s + "%";
+    Condition condition = new ComparisonCondition(Field.TITLE, Operation.LK, s);
+    return this.blogDao.count(condition);
+
+  }
+
+  @Override
   public List<Blog> queryBlogsBrief(long rootCategory, long childCategory, long pageNum,
       long pageSize) {
     List<Field> fields = new ArrayList<Field>();
@@ -93,6 +102,25 @@ public class BlogServiceImpl implements BlogService {
     long offset = (pageNum - 1) * pageSize;
     offset = offset < 0 ? 0 : offset;
     return this.blogDao.getObjects(null, fields, condition, orderBy, offset, pageSize);
+  }
+
+  @Override
+  public List<Blog> searchByTitle(String s, long pageNum, long pageSize) {
+    Validate.notNull(s);
+    List<Field> fields = new ArrayList<Field>();
+    fields.add(Field.ID);
+    fields.add(Field.TITLE);
+    fields.add(Field.USER_NAME);
+    fields.add(Field.ADD_TIME);
+
+    s = "%" + s + "%";
+
+    Condition condition = new ComparisonCondition(Field.TITLE, Operation.LK, s);
+    OrderBy orderBy = new CommonOrderBy(Field.ID, OrderByDirection.DESC);
+    long offset = (pageNum - 1) * pageSize;
+    offset = offset < 0 ? 0 : offset;
+    return this.blogDao.getObjects(null, fields, condition, orderBy, offset, pageSize);
+
   }
 
   @Override

@@ -31,6 +31,7 @@ public class ComparisonCondition implements Condition {
       case LT:
       case LE:
       case NE:
+      case LK:
         return singleComparationSqlClause(params);
       case IN:
       case NI:
@@ -76,6 +77,7 @@ public class ComparisonCondition implements Condition {
     NE("!="), // 不等于
     IN("in"), // in操作
     NI("not in"), // not in 操作
+    LK(" like "), // like操作
     ;
 
     private String sqlClause;

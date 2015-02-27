@@ -22,4 +22,8 @@ public interface BlogService {
 
   boolean deleteBlog(long id);
 
+  List<Blog> searchByTitle(String s, long pageNum, long pageSize);
+
+  long getSearchByTitleSize(String s);
+
 }

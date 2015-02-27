@@ -14,6 +14,9 @@
 	<property name="web.home" value="${basedir}/WebContent"></property>
 	<property name="lib.home" value="${basedir}/lib" />
 	
+	<!-- =============== Property by dev ======================== -->
+	<!-- <property name="mac.os" value="true" /> -->
+	
 	<!-- ================ Compilation Control Options ============ -->
 	<property name="compile.debug" value="true" />
 	<property name="compile.deprecation" value="false" />
@@ -109,18 +112,19 @@
 	</target>
 	
 	<target name="winchooser" depends="maccheck" unless="mac.os">
-			<delete file="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
-			<copy file="${src.home}/com/github/colingan/infos/biz/BizConstants.java.win" tofile="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+		<echo message="os name = ${os.name}" />
+		<delete file="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+		<copy file="${src.home}/com/github/colingan/infos/biz/BizConstants.java.win" tofile="${src.home}/com/github/colingan/infos/biz/BizConstants.java" />
+					
+		<delete file="${resources.home}/applicationContext.xml" />
+		<copy file="${resources.home}/applicationContext.xml.win" tofile="${resources.home}/applicationContext.xml" />
 						
-			<delete file="${resources.home}/applicationContext.xml" />
-			<copy file="${resources.home}/applicationContext.xml.win" tofile="${resources.home}/applicationContext.xml" />
-							
-			<delete file="${resources.home}/jdbc-mysql.properties" />
-			<copy file="${resources.home}/jdbc-mysql.properties.win" tofile="${resources.home}/jdbc-mysql.properties" />
-							
-			<delete file="${resources.home}/sysconf.properties" />
-			<copy file="${resources.home}/sysconf.properties.win" tofile="${resources.home}/sysconf.properties" />
-		</target>
+		<delete file="${resources.home}/jdbc-mysql.properties" />
+		<copy file="${resources.home}/jdbc-mysql.properties.win" tofile="${resources.home}/jdbc-mysql.properties" />
+						
+		<delete file="${resources.home}/sysconf.properties" />
+		<copy file="${resources.home}/sysconf.properties.win" tofile="${resources.home}/sysconf.properties" />
+	</target>
 	
 	<target name="maccheck">
 		<condition property="mac.os">

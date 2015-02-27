@@ -11,6 +11,10 @@ body {
 		height: auto;
 		min-height: 100%;	
 	}
+	
+	abbr[title]{
+		border-bottom: 1px dotted #999;
+	}
 
 #container,
 #inner-header,
@@ -99,6 +103,7 @@ body {
 	/* default styles & fixes */
 	#main { 
 		margin-left: 0; 
+		min-height: 300px;
 	} /* fixes alignment (defaulted at col620) */
 	
 	#sidebar { 
@@ -660,23 +665,23 @@ POSTS & CONTENT STYLES
 				width: 100%;
 				z-index: 3;
 			}
-				#content .item-content h2,
-				#content .featured-content h2 {
+				#content .item-content p,
+				#content .featured-content p {
 					background: url(/src/home/images/trans.png);
 					font-size: 1.3em;
 					 
 				}
 				
-					#content .featured-content h2 {
+					#content .featured-content p {
 						padding-right: 50px;
 					}
 				
-					#content .item-content h2:hover {
+					#content .item-content p:hover {
 						background: url(/src/home/images/trans2.png);
 					}
 				
-					#content .item-content h2 a,
-					#content .featured-content h2 a {
+					#content .item-content p a,
+					#content .featured-content p a {
 						display: block;
 						padding: 12px 15px 17px 15px;
 					}
@@ -907,55 +912,6 @@ POST FORMAT STYLES
 	.single .format-image .entry-summary {
 		padding-top: 0;
 	}
-	
-/******************************************************************
-PAGE NAVI STYLES
-(Special Feature)
-******************************************************************/
-	.pagination {
-		clear: both;
-		padding: 10px 0;
-		position: relative;
-		font-size: 11px;
-		line-height: 13px;
-		margin: auto;
-		text-align: center;
-	}
-		 
-	.pagination span, .pagination a {
-		display: inline-block;
-		margin: 2px 5px 2px 0;
-		padding: 6px 9px 5px 9px;
-		text-decoration: none;
-		width: auto;
-		color: #000;
-		background: #fcba01;
-		box-shadow: 0 0 5px #d0d0d0, 0 10px 15px #ffd319 inset;
-		text-shadow: 1px 1px #ffde55;
-	}
-		 
-	.pagination a:hover {
-		color: #fff;
-		background: #8b1115;
-		box-shadow: 0 0 5px #d0d0d0, 0 10px 15px #a32228 inset;
-		text-shadow: -1px -1px #000;
-	}
-		 
-	.pagination .current {
-		padding: 6px 9px 5px 9px;
-		background: #8b1115;
-		color: #fff;
-		box-shadow: 0 0 5px #d0d0d0, 0 10px 15px #a32228 inset;
-		text-shadow: -1px -1px #000;
-	}
-
-
-	
-	/* fallback previous & next links */
-	.wp-prev-next {}
-		.wp-prev-next ul {}
-			.wp-prev-next .prev-link {}
-			.wp-prev-next .next-link {}
 			
 /******************************************************************
 PAGE LINK STYLES

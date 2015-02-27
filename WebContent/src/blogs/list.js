@@ -5,7 +5,8 @@ define(['require', 'bootpag'], function (require) {
 			page: pageNum,
 			maxVisible: 10
 		}).on('page', function(event, num){
-			document.location.href = "/blogList?rootCategory=" + rootCategory + "&childCategory=" + childCategory + "&pageNumber=" + num;
+			var s = $('#s').value;
+			document.location.href = "/search?s=" + s + "&pageNumber=" + num;
 		});
 	}
 })

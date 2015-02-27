@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -64,18 +66,23 @@ public abstract class BaseController {
 
   private void innerFullfilBasicModel(BasicModel model, HttpServletRequest request) {
     model.setLogout(getLogout());
-    List<Category> datas = categoryService.getValidFirstLevelBriefs();
-    List<Map<String, Object>> categorys = new ArrayList<Map<String, Object>>();
-    if (CollectionUtils.isNotEmpty(datas)) {
-      for (Category data : datas) {
-        Map<String, Object> innerMap = new HashMap<String, Object>();
-        innerMap.put(Field.ID.getKeyName(), data.getId());
-        innerMap.put(Field.NAME.getKeyName(), data.getName());
-
-        categorys.add(innerMap);
+    Map<Category, List<Category>> datas = categoryService.queryAllValidCategoryBriefs();
+    Map<Category, List<Map<String, Object>>> categorys =
+        new LinkedHashMap<Category, List<Map<String, Object>>>();
+    if (datas != null && datas.size() > 0) {
+      for (Entry<Category, List<Category>> entry : datas.entrySet()) {
+        categorys.put(entry.getKey(), new ArrayList<Map<String, Object>>());
+        if (CollectionUtils.isNotEmpty(entry.getValue())) {
+          for (Category category : entry.getValue()) {
+            Map<String, Object> innerMap = new HashMap<String, Object>();
+            innerMap.put(Field.ID.getKeyName(), category.getId());
+            innerMap.put(Field.NAME.getKeyName(), category.getName());
+            categorys.get(entry.getKey()).add(innerMap);
+          }
+        }
       }
     }
-    model.setCategorys(categorys);
+    model.setNav(new ArrayList<Entry<Category, List<Map<String, Object>>>>(categorys.entrySet()));
     // role level
     model.setRoleLevel(((Member) request.getAttribute(BizConstants.MEMBER_ROLE_GROUP))
         .getRoleGroup());

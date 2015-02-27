@@ -12,9 +12,9 @@
         <label class="col-sm-2 control-label">分类：</label>
         <div class="col-sm-4">
             <select class="form-control required" id="category1" name="category1">
-            	<#list model.basic.categorys as item>
-                	<#if item??>
-                		<option value="${item.id}">${item.name}</option>
+            	<#list model.basic.nav as rootEntry>
+                	<#if rootEntry??>
+                		<option value="${rootEntry.getKey().id}">${rootEntry.getKey().name}</option>
                 	</#if>
                 </#list>
             </select>

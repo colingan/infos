@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.github.colingan.infos.dal.blogs.BlogDAO;
 import com.github.colingan.infos.dal.blogs.bo.Blog;
+import com.github.colingan.infos.dal.common.Condition;
 import com.github.colingan.infos.dal.common.GenericDAO;
 import com.github.colingan.infos.dal.common.TN;
 
@@ -44,6 +45,20 @@ public class BlogDAOImpl extends GenericDAO<Blog> implements BlogDAO {
         .append(" where category1 = ? and category2 = ?");
 
     return getJdbcTemplate(DEFAULT_USERID).queryForInt(sql.toString(), rootCategory, childCategory);
+  }
+
+  @Override
+  public long count(Condition condition) {
+    if (condition == null) {
+      throw new IllegalArgumentException("condition is required for count operation. - "
+          + condition);
+    }
+    StringBuilder sql = new StringBuilder();
+    List<Object> params = new ArrayList<Object>();
+    sql.append("select count(id) from ").append(getTableName(DEFAULT_USERID)).append(" where ")
+        .append(condition.toSqlClause(params));
+    return getJdbcTemplate(DEFAULT_USERID).queryForInt(sql.toString(), params.toArray());
+
   }
 
   @Override
