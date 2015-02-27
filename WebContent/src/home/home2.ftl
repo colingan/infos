@@ -44,7 +44,7 @@
 												<a href="/blogs/view?id=${latestBlog.id}">
 													<abbr title="${latestBlog.title}">
 														<#if latestBlog.title?length gt 10>
-															${latestBlog.title?substring(0,10)}
+															${latestBlog.title?substring(0,8)}...
 														<#else>
 															${latestBlog.title}
 														</#if>
