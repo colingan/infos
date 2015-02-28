@@ -37,7 +37,7 @@
 									<#assign closed=false />
 								</#if>
 								
-								<td width="50%">
+								<td style="width: 50%; vertical-align: top;">
 									<div class="TodayNews">
 										<strong>
 											<span>
