@@ -68,6 +68,13 @@ FOR BLOG TABLE
 	padding-left: 12px;
 }
 
+#sidebar {
+	padding-left: 10px;
+}
+/*******************************************************************
+END OF BLOG TABLE
+********************************************************************/
+
 #container,
 #inner-header,
 #search-box,
@@ -155,7 +162,7 @@ FOR BLOG TABLE
 	/* default styles & fixes */
 	#main { 
 		margin-left: 0; 
-		min-height: 300px;
+		min-height: 500px;
 	} /* fixes alignment (defaulted at col620) */
 	
 	#sidebar { 
@@ -1351,7 +1358,7 @@ SIDEBARS & ASIDES
 	}
 
 	#sidebar .widget {
-		margin: 0 30px 0 0;
+		margin: 0;
 		padding: 0 0 2em 0;
 		font:  Arial, Helvetica, sans-serif;
 		color: #f1f1f1;

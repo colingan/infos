@@ -1,6 +1,5 @@
 <#include "../header/header.ftl">
 <link href="/src/home/home.css" rel="stylesheet" />
-<link href="/src/home/default.css" rel="stylesheet" />
 <link href="/src/home/newhome.css" rel="stylesheet" />
 
 <#if model.banner?? && model.banner?size gt 0>
@@ -105,23 +104,24 @@
 			<!--user infos -->
 			<aside id="userinfos" class="widget widget_recent_entries">
 				<h2 class="widget-title">${model.basic.userName}</h2>
+				<ul>
+					<!-- TODO LIST FOR CURRENT USER -->
+				</ul
 			</aside>
+			<!-- links -->
+			<aside id="links" class="widget widget_recent_entries">
+				<h2 class="widget-title">友情链接</h2>
+				<ul>
+					<#if model.links??>
+						<#list model.links as link>
+							<li><a target="_blank" href="${link.link}">${link.name}</a></li>
+						</#list>
+					</#if>
+				</ul>
+			</aside>
+			
 		</div>
 	</div>
-	
-	<!-- links -->
-	<div id="linkDiv">
-		<h3>友情链接</h3>
-		<hr>
-		<#if model.links??>
-			<p>
-				<#list model.links as link>
-					<a target="_blank" href="${link.link}" style="color:#000000;">${link.name}</a>
-				</#list>
-			</p>
-		</#if>
-	</div>
-	<!-- end of links -->
 </div>
 	
 <#include "../footer/footer.ftl">
