@@ -19,6 +19,9 @@ public class Blog implements Serializable {
   private Date addTime;
   private Date updateTime;
 
+  // not in db
+  private boolean fresh = false;
+
   public long getId() {
     return id;
   }
@@ -81,6 +84,17 @@ public class Blog implements Serializable {
 
   public void setUpdateTime(Date updateTime) {
     this.updateTime = updateTime;
+  }
+
+
+  public boolean isFresh() {
+
+    return fresh;
+  }
+
+  public void setFresh(boolean fresh) {
+
+    this.fresh = fresh;
   }
 
   @Override

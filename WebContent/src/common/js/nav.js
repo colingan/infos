@@ -33,7 +33,7 @@ define(['jmenu'], function () {
 	// jmenu设置
 	$("#jMenu").jMenu({
         openClick : false,
-        ulWidth : "8em",
+        ulWidth : '8em',
          TimeBeforeOpening : 100,
         TimeBeforeClosing : 11,
         animatedText : false,

@@ -23,10 +23,10 @@ public class BlogDAOImpl extends GenericDAO<Blog> implements BlogDAO {
 
   @Override
   public List<Blog> getLatestBlogs(int latestCount) {
-    long start = System.currentTimeMillis();
     StringBuilder sql = new StringBuilder();
 
-    sql.append("select a.* from ")
+    sql.append(
+        "select a.id as id, a.username as userName, a.category1 as category1, a.category2 as category2, a.title as title, a.addtime as addTime, a.updatetime as updateTime from ")
         .append(getTableName(DEFAULT_USERID))
         .append(" a where ? > (select count(1) from ")
         .append(getTableName(DEFAULT_USERID))

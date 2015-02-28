@@ -29,34 +29,63 @@
 		<div id="main" class="col620 clearfix" role="main">
 			<div class="item-wrap clearfix">
 				<#if model.newBlogs?size gt 0>
-					<#list model.newBlogs as rootEntry>
-						<div class="item col300">
-							<div class="item-cat">
-								<span class="cat-links">
-									<a rel="category" href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
-								</span>
-							</div>
-							<div class="item-content">
-								<header>
-									<#list rootEntry.getValue() as childEntry>
-										<#list childEntry.getValue() as latestBlog>
-											<p class="entry-title">
-												<a href="/blogs/view?id=${latestBlog.id}">
-													<abbr title="${latestBlog.title}">
-														<#if latestBlog.title?length gt 10>
-															${latestBlog.title?substring(0,8)}...
-														<#else>
-															${latestBlog.title}
-														</#if>
-													</abbr>
-												</a>
-											</p>
-										</#list>
-									</#list>
-								</header>
-							</div>
-						</div>						
-					</#list>
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<tbody>
+							<#assign closed=true />
+							<#list model.newBlogs as rootEntry>
+								<#if rootEntry_index % 2 == 0>
+									<tr>
+									<#assign closed=false />
+								</#if>
+								
+								<td width="50%">
+									<div class="TodayNews">
+										<strong>
+											<span>
+												<a href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
+											</span>
+											<span class="more">
+												<a href="/blogs/root?id=${rootEntry.getKey().id}">更多>></a>
+											</span>
+										</strong>
+										<div class="clear"></div>
+										<ul>
+											<#list rootEntry.getValue() as childEntry>
+												<#list childEntry.getValue() as latestBlog>
+													<#if latestBlog.fresh>
+														<li class="today">
+													<#else>
+														<li>
+													</#if>
+													
+													<a href="/blogs/view?id=${latestBlog.id}">
+														<abbr title="${latestBlog.title}">
+															<#if latestBlog.title?length gt 10>
+																${latestBlog.title?substring(0,8)}...
+															<#else>
+																${latestBlog.title}
+															</#if>
+														</abbr>
+													</a>
+													
+													</li>
+												</#list>
+											</#list>
+										</ul>
+									</div>
+								</td>
+								
+								<#if rootEntry_index % 2 == 1>
+									</tr>
+									<#assign closed=true />
+								</#if>								
+							</#list>
+							
+							<#if closed == false>
+								</tr>
+							</#if>
+						</tbody>
+					</table>
 				</#if>
 			</div>
 		</div>

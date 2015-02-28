@@ -4,6 +4,7 @@
 package com.github.colingan.infos.web.main.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,6 +51,8 @@ public class IndexController extends BaseController {
   protected volatile String logout;
   @Value("#[latest.count]")
   protected volatile String latestCount;
+  @Value("#[news.delay]")
+  protected volatile int newsDelay;
 
   @Resource
   private SliderService sliderService;
@@ -154,6 +157,7 @@ public class IndexController extends BaseController {
       }
     }
     List<Blog> blogs = this.blogService.getLatestBlogs(Integer.valueOf(latestCount));
+    Date now = new Date();
     if (CollectionUtils.isNotEmpty(blogs)) {
       for (Blog blog : blogs) {
         Category category1 = new Category(blog.getCategory1());
@@ -163,6 +167,9 @@ public class IndexController extends BaseController {
           blogList = newBlogs.get(category1).get(category2);
         }
         if (blogList != null) {
+          if (DateTimeUtil.daysBetween(now, blog.getAddTime()) <= newsDelay) {
+            blog.setFresh(true);
+          }
           blogList.add(blog);
         } else {
           LOGGER.warn("dirty blog data find." + blog);
