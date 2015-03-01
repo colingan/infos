@@ -20,30 +20,31 @@
         <div class="top-bg">
             <a class="estart-logo" href="/"></a>
             <ul id="jMenu" class="estart-navlist">
-                <li class="nav-index"><a class="estart-navlist-link" href="/" data-log="{'target':'view-nav-service','id':'home'}">首页</a></li>
+                <li class="nav-index" id="home"><a class="estart-navlist-link" href="/" data-log="{'target':'view-nav-service','id':'home'}">首页</a></li>
                 <!-- category nav bars -->
-                <#if model.basic.nav?size gt 0>
-	                <#list model.basic.nav as rootEntry>
-	                	<li id="nav_category_${rootEntry.getKey().id}">
-	                		<a class="estart-navlist-link" href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
-	                		<#if rootEntry.getValue()?size gt 0>
-	                			<ul>
-	                			<#list rootEntry.getValue() as childEntry>
-	                				<li><a href="/blogList?rootCategory=${rootEntry.getKey().id}&childCategory=${childEntry.id}">${childEntry.name}</a></li>
-	                			</#list>
-	                			</ul>
-	                		</#if>
-	                	</li>
-	                </#list>
+                <#if model?? && model.basic??>
+	                <#if model.basic.nav?size gt 0>
+		                <#list model.basic.nav as rootEntry>
+		                	<li id="nav_category_${rootEntry.getKey().id}">
+		                		<a class="estart-navlist-link" href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
+		                		<#if rootEntry.getValue()?size gt 0>
+		                			<ul>
+		                			<#list rootEntry.getValue() as childEntry>
+		                				<li><a href="/blogList?rootCategory=${rootEntry.getKey().id}&childCategory=${childEntry.id}">${childEntry.name}</a></li>
+		                			</#list>
+		                			</ul>
+		                		</#if>
+		                	</li>
+		                </#list>
+		            </#if>
+		            <!-- end of category nav bars -->
+	                <#if model.basic.roleLevel gt 0>
+	                	<li class="nav-backup" id="nav_publish"><a class="estart-navlist-link" href="/publish" data-log="{'target':'view-nav-service','id':'publish'}">新增发布</a></li>
+	                </#if>
+	                <#if model.basic.roleLevel gt 1>
+	                	<li class="nav-backup" id="nav_admin"><a class="estart-navlist-link" href="/admin" data-log="{'target':'view-nav-service','id':'admin'}">系统管理</a></li>
+	                </#if>
 	            </#if>
-	            <!-- end of category nav bars -->
-                <#if model.basic.roleLevel gt 0>
-                	<li class="nav-backup" id="nav_publish"><a class="estart-navlist-link" href="/publish" data-log="{'target':'view-nav-service','id':'publish'}">新增发布</a></li>
-                </#if>
-                <#if model.basic.roleLevel gt 1>
-                	<li class="nav-backup" id="nav_admin"><a class="estart-navlist-link" href="/admin" data-log="{'target':'view-nav-service','id':'admin'}">系统管理</a></li>
-                </#if>
-                <li class="estart-system"><span>${model.basic.userName}</span></li>
             </ul>
         </div>
     </div>

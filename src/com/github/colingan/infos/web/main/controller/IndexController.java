@@ -45,171 +45,186 @@ import com.github.colingan.infos.web.main.model.SearchModel;
 @Controller
 public class IndexController extends BaseController {
 
-  private static final String INDEX_PAGE = "home/home2";
-  private static final String SEARCH_PAGE = "home/search";
+	private static final String INDEX_PAGE = "home/home2";
+	private static final String SEARCH_PAGE = "home/search";
 
-  protected volatile String logout;
-  @Value("#[latest.count]")
-  protected volatile String latestCount;
-  @Value("#[news.delay]")
-  protected volatile int newsDelay;
+	protected volatile String logout;
+	@Value("#[latest.count]")
+	protected volatile String latestCount;
+	@Value("#[news.delay]")
+	protected volatile int newsDelay;
 
-  @Resource
-  private SliderService sliderService;
+	@Resource
+	private SliderService sliderService;
 
-  @Resource
-  private BlogService blogService;
+	@Resource
+	private BlogService blogService;
 
-  @Resource
-  private LinkService linkService;
+	@Resource
+	private LinkService linkService;
 
-  @RequestMapping(value = "/search")
-  public String search(HttpServletRequest request, HttpServletResponse response) {
-    SearchModel model = new SearchModel();
-    // basic数据模型
-    model.setBasic(super.prepareBaseModel(request));
-    request.setAttribute(MODEL_NAME, model);
+	@RequestMapping(value = "/error")
+	public String error() {
+		return "error";
+	}
 
-    // blogs
-    Long pageSize = super.DEFAULT_PAGE_SIZE;
-    String pageSizeStr = request.getParameter(super.PARAM_PAGE_SIZE);
-    if (StringUtils.isNotEmpty(pageSizeStr)) {
-      try {
-        pageSize = Long.parseLong(pageSizeStr);
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("page size参数不正确");
-      }
-    }
-    Long pageNum = super.DEFAULT_PAGE;
-    String pageNumberStr = request.getParameter(super.PARAM_PAGE_NUMBER);
-    if (StringUtils.isNotEmpty(pageNumberStr)) {
-      try {
-        pageNum = Long.parseLong(pageNumberStr);
-      } catch (NumberFormatException nfe) {
-        throw new IllegalArgumentException("page number参数不正确");
-      }
-    }
-    long totalPage = 0;
-    List<Map<String, Object>> blogs = new ArrayList<Map<String, Object>>();
-    String s = request.getParameter("s");
-    if (StringUtils.isEmpty(s)) {
-      // ensure s is not null
-      s = "";
-      // 没有关键词，不检索
-      totalPage = 0;
-    } else {
-      // do query
-      List<Blog> blogList = this.blogService.searchByTitle(s, pageNum, pageSize);
-      if (CollectionUtils.isNotEmpty(blogList)) {
-        for (Blog blog : blogList) {
-          Map<String, Object> innerMap = new HashMap<String, Object>();
-          innerMap.put(Field.ID.getKeyName(), blog.getId());
-          innerMap.put(Field.TITLE.getKeyName(), blog.getTitle());
-          innerMap.put(Field.AUTHOR.getKeyName(), blog.getUserName());
-          innerMap.put(Field.ADD_TIME.getKeyName(), DateTimeUtil.dateToSecond(blog.getAddTime()));
+	@RequestMapping(value = "/search")
+	public String search(HttpServletRequest request,
+			HttpServletResponse response) {
+		SearchModel model = new SearchModel();
+		// basic数据模型
+		model.setBasic(super.prepareBaseModel(request));
+		request.setAttribute(MODEL_NAME, model);
 
-          blogs.add(innerMap);
-        }
-      }
-      totalPage = this.blogService.getSearchByTitleSize(s);
-    }
+		// blogs
+		Long pageSize = super.DEFAULT_PAGE_SIZE;
+		String pageSizeStr = request.getParameter(super.PARAM_PAGE_SIZE);
+		if (StringUtils.isNotEmpty(pageSizeStr)) {
+			try {
+				pageSize = Long.parseLong(pageSizeStr);
+			} catch (NumberFormatException e) {
+				throw new IllegalArgumentException("page size参数不正确");
+			}
+		}
+		Long pageNum = super.DEFAULT_PAGE;
+		String pageNumberStr = request.getParameter(super.PARAM_PAGE_NUMBER);
+		if (StringUtils.isNotEmpty(pageNumberStr)) {
+			try {
+				pageNum = Long.parseLong(pageNumberStr);
+			} catch (NumberFormatException nfe) {
+				throw new IllegalArgumentException("page number参数不正确");
+			}
+		}
+		long totalPage = 0;
+		List<Map<String, Object>> blogs = new ArrayList<Map<String, Object>>();
+		String s = request.getParameter("s");
+		if (StringUtils.isEmpty(s)) {
+			// ensure s is not null
+			s = "";
+			// 没有关键词，不检索
+			totalPage = 0;
+		} else {
+			// do query
+			List<Blog> blogList = this.blogService.searchByTitle(s, pageNum,
+					pageSize);
+			if (CollectionUtils.isNotEmpty(blogList)) {
+				for (Blog blog : blogList) {
+					Map<String, Object> innerMap = new HashMap<String, Object>();
+					innerMap.put(Field.ID.getKeyName(), blog.getId());
+					innerMap.put(Field.TITLE.getKeyName(), blog.getTitle());
+					innerMap.put(Field.AUTHOR.getKeyName(), blog.getUserName());
+					innerMap.put(Field.ADD_TIME.getKeyName(),
+							DateTimeUtil.dateToSecond(blog.getAddTime()));
 
-    model.setBlogs(blogs);
-    model.setPageNum(pageNum);
-    model.setS(s);
-    model.setTotalPage(totalPage % pageSize == 0 ? totalPage / pageSize : totalPage / pageSize + 1);
+					blogs.add(innerMap);
+				}
+			}
+			totalPage = this.blogService.getSearchByTitleSize(s);
+		}
 
-    request.setAttribute(MODEL_NAME, model);
+		model.setBlogs(blogs);
+		model.setPageNum(pageNum);
+		model.setS(s);
+		model.setTotalPage(totalPage % pageSize == 0 ? totalPage / pageSize
+				: totalPage / pageSize + 1);
 
-    return SEARCH_PAGE;
-  }
+		request.setAttribute(MODEL_NAME, model);
 
-  @RequestMapping(value = "/")
-  public String index(HttpServletRequest request, HttpServletResponse response) {
-    MainModel model = new MainModel();
-    // basic数据模型
-    model.setBasic(super.prepareBaseModel(request));
-    request.setAttribute(MODEL_NAME, model);
-    // slider
-    List<Slider> sliders = this.sliderService.queryAllValidateSliders();
-    if (CollectionUtils.isNotEmpty(sliders)) {
-      String[] banner = new String[sliders.size()];
-      int idx = 0;
-      for (Slider slider : sliders) {
-        banner[idx++] = slider.getDestName();
-      }
-      model.setBanner(banner);
-    }
-    // new blogs
-    Map<Category, List<Entry<Category, List<Blog>>>> tmpBlogs =
-        new LinkedHashMap<Category, List<Entry<Category, List<Blog>>>>();
-    Map<Category, Map<Category, List<Blog>>> newBlogs =
-        new LinkedHashMap<Category, Map<Category, List<Blog>>>();
-    Map<Category, List<Category>> categoryMap = this.categoryService.queryAllValidCategoryBriefs();
-    if (categoryMap != null && categoryMap.size() > 0) {
-      for (Entry<Category, List<Category>> entry : categoryMap.entrySet()) {
-        newBlogs.put(entry.getKey(), new LinkedHashMap<Category, List<Blog>>());
-        if (CollectionUtils.isNotEmpty(entry.getValue())) {
-          for (Category category : entry.getValue()) {
-            newBlogs.get(entry.getKey()).put(category, new ArrayList<Blog>());
-          }
-        }
-      }
-    }
-    List<Blog> blogs = this.blogService.getLatestBlogs(Integer.valueOf(latestCount));
-    Date now = new Date();
-    if (CollectionUtils.isNotEmpty(blogs)) {
-      for (Blog blog : blogs) {
-        Category category1 = new Category(blog.getCategory1());
-        Category category2 = new Category(blog.getCategory2());
-        List<Blog> blogList = null;
-        if (newBlogs.containsKey(category1)) {
-          blogList = newBlogs.get(category1).get(category2);
-        }
-        if (blogList != null) {
-          if (DateTimeUtil.daysBetween(now, blog.getAddTime()) <= newsDelay) {
-            blog.setFresh(true);
-          }
-          blogList.add(blog);
-        } else {
-          LOGGER.warn("dirty blog data find." + blog);
-        }
-      }
-    }
-    for (Entry<Category, Map<Category, List<Blog>>> entry : newBlogs.entrySet()) {
-      tmpBlogs.put(entry.getKey(), new ArrayList<Entry<Category, List<Blog>>>(entry.getValue()
-          .entrySet()));
-    }
-    model.setNewBlogs(new ArrayList<Entry<Category, List<Entry<Category, List<Blog>>>>>(tmpBlogs
-        .entrySet()));
+		return SEARCH_PAGE;
+	}
 
-    // links
-    model.setLinks(this.linkService.queryAllLinks());
+	@RequestMapping(value = "/")
+	public String index(HttpServletRequest request, HttpServletResponse response) {
+		MainModel model = new MainModel();
+		// basic数据模型
+		model.setBasic(super.prepareBaseModel(request));
+		request.setAttribute(MODEL_NAME, model);
+		// slider
+		List<Slider> sliders = this.sliderService.queryAllValidateSliders();
+		if (CollectionUtils.isNotEmpty(sliders)) {
+			String[] banner = new String[sliders.size()];
+			int idx = 0;
+			for (Slider slider : sliders) {
+				banner[idx++] = slider.getDestName();
+			}
+			model.setBanner(banner);
+		}
+		// new blogs
+		Map<Category, List<Entry<Category, List<Blog>>>> tmpBlogs = new LinkedHashMap<Category, List<Entry<Category, List<Blog>>>>();
+		Map<Category, Map<Category, List<Blog>>> newBlogs = new LinkedHashMap<Category, Map<Category, List<Blog>>>();
+		Map<Category, List<Category>> categoryMap = this.categoryService
+				.queryAllValidCategoryBriefs();
+		if (categoryMap != null && categoryMap.size() > 0) {
+			for (Entry<Category, List<Category>> entry : categoryMap.entrySet()) {
+				newBlogs.put(entry.getKey(),
+						new LinkedHashMap<Category, List<Blog>>());
+				if (CollectionUtils.isNotEmpty(entry.getValue())) {
+					for (Category category : entry.getValue()) {
+						newBlogs.get(entry.getKey()).put(category,
+								new ArrayList<Blog>());
+					}
+				}
+			}
+		}
+		List<Blog> blogs = this.blogService.getLatestBlogs(Integer
+				.valueOf(latestCount));
+		Date now = new Date();
+		if (CollectionUtils.isNotEmpty(blogs)) {
+			for (Blog blog : blogs) {
+				Category category1 = new Category(blog.getCategory1());
+				Category category2 = new Category(blog.getCategory2());
+				List<Blog> blogList = null;
+				if (newBlogs.containsKey(category1)) {
+					blogList = newBlogs.get(category1).get(category2);
+				}
+				if (blogList != null) {
+					if (DateTimeUtil.daysBetween(now, blog.getAddTime()) <= newsDelay) {
+						blog.setFresh(true);
+					}
+					blogList.add(blog);
+				} else {
+					LOGGER.warn("dirty blog data find." + blog);
+				}
+			}
+		}
+		for (Entry<Category, Map<Category, List<Blog>>> entry : newBlogs
+				.entrySet()) {
+			tmpBlogs.put(entry.getKey(),
+					new ArrayList<Entry<Category, List<Blog>>>(entry.getValue()
+							.entrySet()));
+		}
+		model.setNewBlogs(new ArrayList<Entry<Category, List<Entry<Category, List<Blog>>>>>(
+				tmpBlogs.entrySet()));
 
-    request.setAttribute(MODEL_NAME, model);
-    return INDEX_PAGE;
-  }
+		// links
+		model.setLinks(this.linkService.queryAllLinks());
 
-  @RequestMapping(value = "/raw")
-  @ResponseBody
-  public MainModel indexRaw(HttpServletRequest request, HttpServletResponse response) {
-    this.index(request, response);
-    return (MainModel) request.getAttribute(MODEL_NAME);
-  }
+		request.setAttribute(MODEL_NAME, model);
+		return INDEX_PAGE;
+	}
 
-  /**
-   * 设置登出地址
-   * 
-   * @param logout 登出url
-   */
-  @Value("#[logout.url]")
-  public void setLogout(String logout) {
-    this.logout = logout;
-  }
+	@RequestMapping(value = "/raw")
+	@ResponseBody
+	public MainModel indexRaw(HttpServletRequest request,
+			HttpServletResponse response) {
+		this.index(request, response);
+		return (MainModel) request.getAttribute(MODEL_NAME);
+	}
 
-  @Override
-  protected String getLogout() {
-    return this.logout;
-  }
+	/**
+	 * 设置登出地址
+	 * 
+	 * @param logout
+	 *            登出url
+	 */
+	@Value("#[logout.url]")
+	public void setLogout(String logout) {
+		this.logout = logout;
+	}
+
+	@Override
+	protected String getLogout() {
+		return this.logout;
+	}
 
 }
