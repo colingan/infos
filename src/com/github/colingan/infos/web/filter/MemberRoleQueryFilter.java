@@ -19,56 +19,58 @@ import com.github.colingan.infos.web.model.CookieUser;
 
 public class MemberRoleQueryFilter implements Filter {
 
-  private MemberService memberService;
+	private MemberService memberService;
 
-  @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
 
-  }
+	}
 
-  @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
-    if (this.memberService == null) {
-      this.initMemberService(request);
-    }
-    Member member = null;
-    CookieUser user = (CookieUser) request.getAttribute(BizConstants.UUAP_UNAME_KEY);
-    if (user == CookieUser.NOBODY) {
-      member = new Member();
-      member.setUserName(user.getN());
-      member.setRoleGroup(RoleGroup.READ_ONLY.getValue());
-    } else {
-      member = memberService.queryMemberInfoForUser(user.getN());
-      if (member == null) {
-        member = new Member();
-        member.setUserName(user.getN());
-        // 只读权限
-        member.setRoleGroup(RoleGroup.READ_ONLY.getValue());
-      }
-    }
-    request.setAttribute(BizConstants.MEMBER_ROLE_GROUP, member);
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		if (this.memberService == null) {
+			this.initMemberService(request);
+		}
+		Member member = null;
+		CookieUser user = (CookieUser) request
+				.getAttribute(BizConstants.UUAP_UNAME_KEY);
+		if (user == CookieUser.NOBODY) {
+			member = new Member();
+			member.setUserName(user.getN());
+			member.setRoleGroup(RoleGroup.ANOY.getValue());
+		} else {
+			member = memberService.queryMemberInfoForUser(user.getN());
+			if (member == null) {
+				member = new Member();
+				member.setUserName(user.getN());
+				// 只读权限
+				member.setRoleGroup(RoleGroup.ANOY.getValue());
+			}
+		}
+		request.setAttribute(BizConstants.MEMBER_ROLE_GROUP, member);
 
-    // continue
-    chain.doFilter(request, response);
-  }
+		// continue
+		chain.doFilter(request, response);
+	}
 
-  @Override
-  public void destroy() {
+	@Override
+	public void destroy() {
 
-  }
+	}
 
-  private synchronized void initMemberService(ServletRequest request) {
-    if (memberService == null) {
-      memberService =
-          ApplicationContextProvier.getApplicationContext().getBean(MemberService.class);
-      System.out.println("memberService : " + memberService);
-    }
-  }
+	private synchronized void initMemberService(ServletRequest request) {
+		if (memberService == null) {
+			memberService = ApplicationContextProvier.getApplicationContext()
+					.getBean(MemberService.class);
+			System.out.println("memberService : " + memberService);
+		}
+	}
 
-  protected String getUserName(HttpServletRequest request) {
-    CookieUser user = (CookieUser) request.getAttribute(BizConstants.UUAP_UNAME_KEY);
-    return user.getN();
-  }
+	protected String getUserName(HttpServletRequest request) {
+		CookieUser user = (CookieUser) request
+				.getAttribute(BizConstants.UUAP_UNAME_KEY);
+		return user.getN();
+	}
 
 }
