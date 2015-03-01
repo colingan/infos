@@ -16,7 +16,7 @@
 }
 .estart-navlist {
 	height: 63px;
-	float: right;
+	/*float: right;*/
 	margin-bottom: 0 !important;
 }
 .estart-navlist li {
