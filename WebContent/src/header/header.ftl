@@ -19,6 +19,10 @@
     <div class="estart-top">
         <div class="top-bg">
             <a class="estart-logo" href="/"></a>
+        </div>
+    </div>
+    <div class="estart-top">
+        <div class="top-bg">
             <ul id="jMenu" class="estart-navlist">
                 <li class="nav-index" id="home"><a class="estart-navlist-link" href="/" data-log="{'target':'view-nav-service','id':'home'}">首页</a></li>
                 <!-- category nav bars -->

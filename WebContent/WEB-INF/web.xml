@@ -64,8 +64,8 @@
    		<filter-class>com.github.colingan.infos.web.filter.ViewCheckFilter</filter-class>
    	</filter>
    	<filter-mapping>
-   		<filter-name>View Valdate Filter</filter-name>
-   		<url-pattern>/blog*</url-pattern>
+   		<filter-name>View Validate Filter</filter-name>
+   		<url-pattern>/*</url-pattern>
    	</filter-mapping>
    	
    	<!-- admin check filter -->
