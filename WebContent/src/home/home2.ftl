@@ -13,7 +13,7 @@
 			<ul class="banner-content carousel-inner" role="listbox">
 				<#list model.banner as ban>
 					<li class="item">
-                        <img src="/onesfile/sliders/${ban}" width=1200 height=400 />
+                        <img src="/onesfile/sliders/${ban}" height="400" style="margin:auto;" />
                     </li>
 				</#list>
 			</ul>
@@ -39,14 +39,19 @@
 								
 								<td style="width: 50%; vertical-align: top;">
 									<div class="TodayNews">
-										<strong>
-											<span>
-												<a href="/blogs/root?id=${rootEntry.getKey().id}">${rootEntry.getKey().name}</a>
-											</span>
-											<span class="more">
-												<a href="/blogs/root?id=${rootEntry.getKey().id}">更多>></a>
-											</span>
-										</strong>
+										<table border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<td>
+													<img src="/src/img/main/icon/zuixinxinxi_1.jpg" height="35" width="67" border="0" />
+												</td>
+												<td width="105" background="/src/img/main/icon/zuixinxinxi_2.jpg">
+													<a href="/blogs/root?id=${rootEntry.getKey().id}" style="font-size:18px;">${rootEntry.getKey().name}</a>
+												</td>
+												<td>
+													<img src="/src/img/main/icon/zuixinxinxi_3.jpg" width="193" height="35" border="0" />
+												</td>
+											</tr>
+										</table>
 										<div class="clear"></div>
 										<ul>
 											<#list rootEntry.getValue() as childEntry>
@@ -57,12 +62,17 @@
 														<li>
 													</#if>
 													
+													<span class="date">${latestBlog.formatedAddTime}</span>
 													<a href="/blogs/view?id=${latestBlog.id}">
 														<abbr title="${latestBlog.title}">
 															<#if latestBlog.title?length gt 10>
 																${latestBlog.title?substring(0,8)}...
 															<#else>
 																${latestBlog.title}
+															</#if>
+															
+															<#if latestBlog.fresh>
+																<span class="blog_new"></span>
 															</#if>
 														</abbr>
 													</a>

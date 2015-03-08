@@ -25,6 +25,8 @@ public interface BizConstants {
   public static final String EDITOR_FILE_PATH = CONTENT_FILE_DEST + "/editor/";
 
   public static final String EDITOR_SAVE_URL = "/editorfile/";
+  
+  public static final String EDITOR_DOWNLOAD_URL = "/editor/download.do";
 
   public static final String MEMBER_ROLE_GROUP = "_const_member_role_";
 

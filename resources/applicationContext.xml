@@ -36,8 +36,8 @@
 	<mvc:resources mapping="/src/**" location="/src/" />
 	<mvc:resources mapping="/bower_components/**" location="/bower_components/" /> 
 	<mvc:resources mapping="/kindeditor/**" location="/kindeditor/" />
-	<mvc:resources mapping="/onesfile/**" location="file:D:/infodatas/" />
-	<mvc:resources mapping="/editorfile/**" location="file:D:/infodatas/datas/editor/" />
+	<mvc:resources mapping="/onesfile/**" location="file:/Volumes/FUN/java/infodatas/" />
+	<mvc:resources mapping="/editorfile/**" location="file:/Volumes/FUN/java/infodatas/datas/editor/" />
 
 	<!-- freemarker的配置 -->  
     <bean id="freemarkerConfigurer"  

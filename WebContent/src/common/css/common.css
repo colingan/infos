@@ -161,3 +161,11 @@
 .footer a:hover {
     text-decoration: underline;
 }
+
+/*Blogs new */
+.blog_new { 
+	position:absolute; 
+	width:30px; 
+	height:14px; 
+	background:url(/src/img/main/icon/new.gif) no-repeat; 
+}

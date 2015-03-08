@@ -361,3 +361,10 @@ h2 {
 .check-more {
     font-size: 12px;
 }
+
+.TodayNews ul li .date {
+	font-size: 8pt;
+	font-family: Candara, arial;
+	float: right;
+	color: #666;
+}
