@@ -33,7 +33,7 @@ public class CategoryDAOImpl extends GenericDAO<Category> implements CategoryDAO
     Validate.notNull(category);
     StringBuilder sql = new StringBuilder();
     sql.append("update ").append(getTableName(DEFAULT_USERID))
-        .append(" set name = ? , updatetime = ?, updateuser = ? where id = ?");
+        .append(" set categoryname = ? , updatetime = ?, updateuser = ? where id = ?");
     List<Object> params = new ArrayList<Object>();
     params.add(category.getName());
     params.add(new Timestamp(System.currentTimeMillis()));
@@ -61,7 +61,7 @@ public class CategoryDAOImpl extends GenericDAO<Category> implements CategoryDAO
     sql.append("insert into ")
         .append(getTableName(DEFAULT_USERID))
         .append(
-            " (name, level, parentcategory, isdel, addtime, updatetime, updateuser) values (?,?,?,?,?,?,?)");
+            " (categoryname, level, parentcategory, isdel, addtime, updatetime, updateuser) values (?,?,?,?,?,?,?)");
     KeyHolder holder = new GeneratedKeyHolder();
     getJdbcTemplate(DEFAULT_USERID).update(new PreparedStatementCreator() {
 

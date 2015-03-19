@@ -4,8 +4,10 @@
 package com.github.colingan.infos.dal.utils;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -65,6 +67,21 @@ public abstract class SqlBuilderHelper {
   public static Object trans(Class<?> clazz, Map<String, Object> record) {
     try {
       return JacksonUtil.str2Obj(JacksonUtil.obj2Str(record), clazz);
+    } catch (Exception e) {
+      throw new RuntimeException("failed to translate record to object. class - " + clazz
+          + ", record - " + record, e);
+    }
+  }
+
+  // for access
+  public static Object trans2(Class<?> clazz, Map<String, Object> record) {
+    try {
+      Map<String, Object> newRecord = new HashMap<String, Object>(record.size());
+      for (Entry<String, Object> entry : record.entrySet()) {
+        Field check = Field.queryFieldByBoName(entry.getKey());
+        newRecord.put(check == null ? entry.getKey() : check.getBoName(), entry.getValue());
+      }
+      return JacksonUtil.str2Obj(JacksonUtil.obj2Str(newRecord), clazz);
     } catch (Exception e) {
       throw new RuntimeException("failed to translate record to object. class - " + clazz
           + ", record - " + record, e);

@@ -25,7 +25,7 @@ public class LinkDAOImpl extends GenericDAO<Link> implements LinkDAO {
     Validate.notNull(link, "link should not be null.");
     final StringBuilder sql = new StringBuilder();
     sql.append("insert into ").append(getTableName(DEFAULT_USERID))
-        .append(" (name, link, addtime, updatetime) values (?,?,?,?)");
+        .append(" (linkname, link, addtime, updatetime) values (?,?,?,?)");
     KeyHolder keyHolder = new GeneratedKeyHolder();
 
     getJdbcTemplate(DEFAULT_USERID).update(new PreparedStatementCreator() {
@@ -52,7 +52,7 @@ public class LinkDAOImpl extends GenericDAO<Link> implements LinkDAO {
     Validate.notEmpty(link, "link should not be empty.");
     StringBuilder sql = new StringBuilder();
     sql.append("update ").append(getTableName(DEFAULT_USERID))
-        .append(" set name = ?, link = ?, updatetime = ? where id = ?");
+        .append(" set linkname = ?, link = ?, updatetime = ? where id = ?");
     List<Object> params = new ArrayList<Object>();
     params.add(name);
     params.add(link);

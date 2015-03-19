@@ -56,7 +56,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
   public Map<Category, List<Category>> queryAllValidCategoryBriefs() {
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     return this.innerQueryCategory(null, null, Boolean.TRUE, fields);
   }
 
@@ -91,7 +91,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
     }
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     fields.add(Field.LEVEL);
 
     Condition condition = new ComparisonCondition(Field.ID, Operation.IN, Arrays.asList(ids));
@@ -112,7 +112,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
   public Category getValidateCategoryByIds(long level1, long level2) {
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     Condition condition =
         new LogicGroupCondition(new ComparisonCondition(Field.ID, Operation.EQ, level2),
             LogicOperation.AND,
@@ -131,7 +131,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
   @Override
   public List<Category> getValidFirstLevelBriefs() {
     List<Field> fields = new ArrayList<Field>();
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     fields.add(Field.ID);
     Map<Category, List<Category>> datas =
         this.innerQueryCategory(CategoryLevel.LEVEL1, null, Boolean.TRUE, fields);
@@ -142,7 +142,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
   public List<Category> getValidFirstLevelContent() {
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     fields.add(Field.LEVEL);
     Map<Category, List<Category>> datas =
         this.innerQueryCategory(CategoryLevel.LEVEL1, null, Boolean.TRUE, fields);
@@ -154,7 +154,7 @@ public class CategoryServiceImpl extends AbstractBaseService implements Category
     Validate.isTrue(parentCategory > 0, "parent category id should greater than 0");
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.CATEGORY_NAME);
     fields.add(Field.LEVEL);
     Map<Category, List<Category>> datas =
         this.innerQueryCategory(CategoryLevel.LEVEL2, parentCategory, Boolean.TRUE, fields);

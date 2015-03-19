@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.github.colingan.infos.biz.services.link.LinkService;
 import com.github.colingan.infos.dal.common.CommonOrderBy;
+import com.github.colingan.infos.dal.common.CommonOrderBy.OrderByDirection;
 import com.github.colingan.infos.dal.common.ComparisonCondition;
+import com.github.colingan.infos.dal.common.ComparisonCondition.Operation;
 import com.github.colingan.infos.dal.common.Field;
 import com.github.colingan.infos.dal.common.OrderBy;
-import com.github.colingan.infos.dal.common.CommonOrderBy.OrderByDirection;
-import com.github.colingan.infos.dal.common.ComparisonCondition.Operation;
 import com.github.colingan.infos.dal.link.LinkDAO;
 import com.github.colingan.infos.dal.link.bo.Link;
 
@@ -29,7 +29,7 @@ public class LinkServiceImpl implements LinkService {
   public List<Link> queryAllLinks() {
     List<Field> fields = new ArrayList<Field>();
     fields.add(Field.ID);
-    fields.add(Field.NAME);
+    fields.add(Field.LINK_NAME);
     fields.add(Field.LINK);
 
     OrderBy orderBy = new CommonOrderBy(Field.ID, OrderByDirection.ASC);

@@ -1,9 +1,9 @@
-jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.driverClassName=net.ucanaccess.jdbc.UcanaccessDriver
 
 #for windows
-db6868_write.url=jdbc:mysql://localhost:13306?characterEncoding=utf8
-db6868_write.username=info_write
-db6868_write.password=12345678
+db6868_write.url=jdbc:ucanaccess://D:\\msaccess\\infos.accdb
+db6868_write.username=
+db6868_write.password=
 db6868_write.maxPoolSize=5
 db6868_write.minPoolSize=1
 db6868_write.initialPoolSize=2

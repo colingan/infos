@@ -106,7 +106,7 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
   protected List<T> trans(List<Map<String, Object>> records) {
     List<T> datas = new ArrayList<T>();
     for (Map<String, Object> record : records) {
-      datas.add((T) SqlBuilderHelper.trans(clazz, record));
+      datas.add((T) SqlBuilderHelper.trans2(clazz, record));
     }
     return datas;
   }

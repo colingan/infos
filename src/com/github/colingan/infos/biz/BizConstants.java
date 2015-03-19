@@ -6,7 +6,7 @@ public interface BizConstants {
 
   public static final String DATE_FORMAT_STRING = "yyyy-MM-dd";
 
-  public static final String CONTENT_FILE_DEST = "/Volumes/FUN/java/infodatas/datas";
+  public static final String CONTENT_FILE_DEST = "D:/infodatas/datas";
 
   public static final String PRODUCT_ATTACHMENT_DIR = CONTENT_FILE_DEST + "/product";
 

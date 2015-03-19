@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录主键',
-  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT '分类名称',
+  `categoryname` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT '分类名称',
   `level` tinyint(2) NOT NULL DEFAULT '1' COMMENT '分类层级',
   `parentcategory` bigint(11) unsigned NOT NULL DEFAULT '0' COMMENT '父分类id',
   `isdel` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否删除',
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `links`;
 
 CREATE TABLE `links` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录主键',
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '名称',
+  `linkname` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '名称',
   `link` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT '链接地址',
   `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `updatetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',

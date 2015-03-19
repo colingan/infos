@@ -1,5 +1,8 @@
 package com.github.colingan.infos.dal.common;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import org.apache.commons.lang.StringUtils;
 
 public enum Field {
@@ -13,6 +16,8 @@ public enum Field {
   PARENT_CATEGORY, // 父分类id
   IS_DEL, // 是否删除
   ADD_TIME, // 添加时间
+  
+  CATEGORY_NAME("categoryname", "name", "name"),
 
   // members
   REAL_NAME, // 姓名
@@ -22,6 +27,7 @@ public enum Field {
 
   // links
   LINK, // 链接
+  LINK_NAME("linkname", "name", "name"),
 
   // slider
   IDX, // 序号
@@ -94,6 +100,23 @@ public enum Field {
 
   public String getBoName() {
     return boName;
+  }
+
+  // for access which not support query alias case sensitive.
+  private static ConcurrentMap<String, Field> BO_FIELD_MAP =
+      new ConcurrentHashMap<String, Field>();
+  static {
+    for (Field field : Field.values()) {
+      // 有雷，小心。
+      BO_FIELD_MAP.putIfAbsent(field.getBoName().toUpperCase(), field);
+    }
+  }
+
+  public static Field queryFieldByBoName(String boName) {
+    if (boName == null) {
+      return null;
+    }
+    return BO_FIELD_MAP.get(boName.toUpperCase());
   }
 
 }
